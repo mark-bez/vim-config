@@ -78,7 +78,7 @@ Plug 'lgalke/vim-compiler-vale'
 Plug 'junegunn/vim-peekaboo'
 
 " displays a calendar
-Plug 'itchyny/calendar'
+Plug 'itchyny/calendar.vim'
 
 " use ctrl-a to increment dates
 Plug 'tpope/vim-speeddating'
@@ -154,7 +154,7 @@ Plug 'https://github.com/adelarsq/vim-matchit'
 Plug 'preservim/tagbar'
 
 " Adds vertical lines for indented code
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
 
 " colorscheme from tpope
 Plug 'tpope/vim-vividchalk'
@@ -694,6 +694,7 @@ noremap <leader>ht a<!DOCTYPE html><CR><html><CR><head><CR><title>Title</title><
 " -----------------------------------------------------------------------------
 
 " set undodir=C:\Users\echo\vimfiles\undodir     " Saves undo steps to a file so you can redo even after exiting Vim
+set undodir=~/Documents/vim-undo-files     " Saves undo steps to a file so you can redo even after exiting Vim
 " set spellfile=C:\Users\echo\vimfiles\spell\en.utf-8.add
 " set directory=/tmp//,.
 " set backupdir=/tmp//,.
