@@ -2,12 +2,10 @@ set autoindent                 " copy indent from current line when starting a n
 set autoread                   "autoreload the file if is has been changed outside Vim
 set background=light
 set backspace=indent,eol,start " Allows you to backspace to the left of the Insert mode entry character
-set backupdir=/tmp//,.
 set cmdheight=2                " give more space for displaying messages
 set complete-=i                " related to ctrl-p completion - see h: set complete
 set cursorline                 " highlight current line - this may slow down performance
 set cpo-=J                     " sets the definition of a sentence to be one space after the period - for two spaces use set cpo+=J
-" set directory=/tmp//,.
 set encoding=utf-8             " set encoding to UTF-8 (default was "latin1")
 set expandtab smarttab         " convert <TAB> key-presses to spaces
 set filetype=on
@@ -44,7 +42,6 @@ set smartcase
 set smartindent                " even better autoindent (e.g. add indent after '{')
 set smarttab
 set spelllang=en_us
-" set spellfile=C:\Users\echo\vimfiles\spell\en.utf-8.add
 set splitbelow
 set splitright
 set tabstop=2                  " width that a <TAB> character displays as
@@ -55,16 +52,12 @@ set updatetime=300             " default is 4 s which can cause delays
 set softtabstop=2              " backspace after pressing <TAB> will remove up to this many spaces
 " set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
 " set statusline=%t%=[%{strlen(&fenc)?&fenc:'none'},%{&ff}]\ %h%m%r%y\ %c\ %l/%L\ %P
-" set undodir=C:\Users\echo\vimfiles\undodir     " Saves undo steps to a file so you can redo even after exiting Vim
 set undofile
 set wildmenu                   " visual autocomplete for command menu
 set wildmode=list:longest,full
 
-" -----------------------------------------------------------------------------
-" Set current directory on startup
-" -----------------------------------------------------------------------------
 
-cd $HOME
+cd $HOME " Sets current directory on startup
 
 " -----------------------------------------------------------------------------
 " Plugins
@@ -84,8 +77,8 @@ Plug 'lgalke/vim-compiler-vale'
 " show registers
 Plug 'junegunn/vim-peekaboo'
 
-" Grammar checker
-Plug 'dpelle/vim-LanguageTool'
+" displays a calendar
+Plug 'itchyny/calendar'
 
 " use ctrl-a to increment dates
 Plug 'tpope/vim-speeddating'
@@ -199,7 +192,6 @@ syntax enable
 " Detect filetypes and run language-specific plugins in the ftplugin folder
 filetype plugin indent on
 
-
 " -----------------------------------------------------------------------------
 " IndentLine plugin mappings
 " -----------------------------------------------------------------------------
@@ -280,9 +272,6 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 nnoremap <tab> %
 vnoremap <tab> %
 
-" enter insert mode after moving to the end of a word in Normal mode
-map e ea
-
 " splits the line on a character in Normal mode when pressing s
 nnoremap <leader>s i<CR><ESC>
 
@@ -354,26 +343,6 @@ augroup END
 " winsize 140 50
  winpos 0 0
  winsize 300 120
-
-" -----------------------------------------------------------------------------
-" Startify settings
-" -----------------------------------------------------------------------------
-
-" let g:startify_custom_header = [
-"     \ ' WELCOME TO VIM'
-"     \ ]
-"
-" let g:startify_session_dir = 'C:\Users\echo\vimfiles\sessions'
-"
-" let g:startify_bookmarks = [ 'C:\Users\echo\Documents\notes', 'C:\Users\echo\Documents\websites\tek-write-jekyll\site' ]
-"
-" let g:startify_lists = [
-"       \ { 'type': 'bookmarks', 'header': ['   Bookmarks:']      },
-"       \ { 'type': 'files',     'header': ['   Recent Files:']            },
-"       \ { 'type': 'dir',       'header': ['   Files in Current Directory sorted by save time: '. getcwd()] },
-"       \ { 'type': 'sessions',  'header': ['   Sessions:']       },
-"       \ { 'type': 'commands',  'header': ['   Commands:']       },
-"       \ ]
 
 " -----------------------------------------------------------------------------
 " Airline settings
@@ -491,12 +460,6 @@ let g:asciidoctor_executable = 'asciidoctor'
 " What extensions to use for HTML, default `[]`.
 let g:asciidoctor_extensions = ['asciidoctor-diagram', 'asciidoctor-rouge']
 
-" Path to the custom css - turned off so I can specify as a file attribute
-" let g:asciidoctor_css_path = 'C:\Users\echo\Documents\notes\css'
-
-" Custom css name to use instead of built-in - turned off so I can specify as a file attribute
-" let g:asciidoctor_css = 'asciidoctor-wide.css'
-
 " Conceal *bold*, _italic_, `code` and urls in lists and paragraphs, default `0`.
 " See limitations in end of the README
 let g:asciidoctor_syntax_conceal = 0
@@ -523,27 +486,6 @@ augroup asciidoctor
     au!
     au BufEnter *.adoc,*.asciidoc call AsciidoctorMappings()
 augroup END
-
-" .............................................................................
-" Syntastic plugin settings
-" .............................................................................
-
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_asciidoc_checkers = ['asciidoc']
-" let g:syntastic_asciidoc_asciidoc_exec = "asciidoctor"
-" let g:syntastic_xml_checkers = ['xmllint']
-" let g:syntastic_html_checkers = ['tidy']
-" let g:syntastic_css_checkers = ['stylelint']
-"
-" let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] } " starts up with Syntastic turned off. Use F9 to toggle it on and off. It interferes with fzf so must be off when using fzf.
-" silent! nmap <F9> :SyntasticToggleMode<CR>
 
 " .............................................................................
 " ALE plugin settings
@@ -707,8 +649,6 @@ nmap <Leader>pxa :%!xmllint --format -<CR>
 
 nmap <Leader>i :%!xsltlint<CR>
 
-
-
 " -----------------------------------------------------------------------------
 " Enable use of standard Windows copy and paste commands
 " -----------------------------------------------------------------------------
@@ -748,3 +688,19 @@ nnoremap <silent> <F3> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>
 noremap <leader>dt a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd"><CR><task id="abcd"><CR><taskbody><CR><title>Title</title><CR></taskbody><CR></task><ESC>
 noremap <leader>dc a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd"><CR><concept id="abcd"><CR><conbody><CR><title>Title</title><CR></conbody><CR></concept><ESC>
 noremap <leader>ht a<!DOCTYPE html><CR><html><CR><head><CR><title>Title</title><CR><link rel="stylesheet" href="style.css"><CR></head><CR><body><CR><h1>Heading1</h1><CR></body><CR></html><ESC>
+
+" -----------------------------------------------------------------------------
+" Computer-specific settings
+" -----------------------------------------------------------------------------
+
+" set undodir=C:\Users\echo\vimfiles\undodir     " Saves undo steps to a file so you can redo even after exiting Vim
+" set spellfile=C:\Users\echo\vimfiles\spell\en.utf-8.add
+" set directory=/tmp//,.
+" set backupdir=/tmp//,.
+
+" Path to the custom css - turned off so I can specify as a file attribute
+" let g:asciidoctor_css_path = 'C:\Users\echo\Documents\notes\css'
+
+" Custom css name to use instead of built-in - turned off so I can specify as a file attribute
+" let g:asciidoctor_css = 'asciidoctor-wide.css'
+
