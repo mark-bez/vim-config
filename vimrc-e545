@@ -33,7 +33,7 @@ set relativenumber             " set relative line numbers
 set ruler                      " show line and column number of the cursor on right side of statusline
 set scrolloff=3                " keep three lines between the cursor and the edge of the screen
 set shiftwidth=2               " number of spaces to use for each step of (auto)indent
-set shortmess=IS               " turns off Bram's message on start-up as well as add search number below the statusline
+set shortmess=I                " turns off Bram's message on start-up (I)
 set showcmd
 set sidescroll=1               " scrolls the window left/right to see text outside the window
 set noshowmatch                  "turn off highlight matching parentheses / brackets [{()}]
@@ -48,7 +48,7 @@ set tabstop=2                  " width that a <TAB> character displays as
 set textwidth=0
 set timeoutlen=500
 set ttyfast
-set updatetime=300             " default is 4 s which can cause delays
+set updatetime=4000            " related to when a swapfile is written default is 4 s which can cause delays - swapfile currently off
 set softtabstop=2              " backspace after pressing <TAB> will remove up to this many spaces
 " set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
 " set statusline=%t%=[%{strlen(&fenc)?&fenc:'none'},%{&ff}]\ %h%m%r%y\ %c\ %l/%L\ %P
@@ -64,7 +64,7 @@ cd $HOME " Sets current directory on startup
 " -----------------------------------------------------------------------------
 
 " Specify a directory for plugins
-call plug#begin()
+call plug#begin('~/.vim/plugged')
 
 " automatic typo correction
 Plug 'tpope/vim-abolish'
@@ -693,9 +693,10 @@ noremap <leader>ht a<!DOCTYPE html><CR><html><CR><head><CR><title>Title</title><
 " Computer-specific settings
 " -----------------------------------------------------------------------------
 
-" set undodir=C:\Users\echo\vimfiles\undodir     " Saves undo steps to a file so you can redo even after exiting Vim
-set undodir=~/Documents/vim-undo-files     " Saves undo steps to a file so you can redo even after exiting Vim
+" set undodir=C:\Users\echo\vimfiles\undodir     " P53 Saves undo steps to a file so you can redo even after exiting Vim
+set undodir=~/Documents/vim-undo-files     " E545 Saves undo steps to a file so you can redo even after exiting Vim
 " set spellfile=C:\Users\echo\vimfiles\spell\en.utf-8.add
+" set spellfile=~/Documents/repos/vim-config/en.utf-8.add
 " set directory=/tmp//,.
 " set backupdir=/tmp//,.
 
