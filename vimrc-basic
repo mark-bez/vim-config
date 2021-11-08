@@ -1,1 +1,78 @@
-" This will be a basic configuration that is fast to use for large files
+" vimrc basic
+
+set nocompatible 
+set expandtab 
+set hlsearch 
+set tabstop=2 
+set shiftwidth=2
+set wrap
+set linebreak
+set nocursorline
+set number
+
+color blue
+
+" map Esc key alternative to jk and kj for insert mode and visual mode
+inoremap jk <esc>
+inoremap kj <esc>
+xnoremap jk <esc>
+xnoremap kj <esc>
+
+"" Enable use of standard Windows copy and paste commands
+" use ctrl-c in normal and visual modes to store in the Windows clipboar
+nnoremap <C-c> "+y
+vnoremap <C-c> "+y
+
+" while in any Vim mode, use ctrl-p to paste into Vim from the Windows clipboard
+map <C-p> "+p
+
+" use ctrl-x in normal and visual modes of Vim to cut and store in the Windows clipboard
+map <C-x> "+x
+
+call plug#begin('~/.vim/plugged')
+" automatic typo correction
+Plug 'tpope/vim-abolish'
+Plug 'jdelkins/vim-correction'
+" Spelling checker enhancer
+Plug 'inkarkat/vim-ingo-library' | Plug 'inkarkat/vim-SpellCheck'
+call plug#end()
+
+" Remapping of alt-j, alt-k to move lines up and down
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <esc>:m .+1<CR>==gi
+inoremap <A-k> <esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
+" turn off search highlighting with <CR> (carriage-return)
+nnoremap <CR> :nohlsearch<CR><CR>
+
+" set the mapleader
+let mapleader = " "
+let g:mapleader = " "
+
+" splits the line on a character in Normal mode when pressing s
+nnoremap <leader>s i<CR><ESC>
+
+" open _vimrc file with ,ev (leader edit vim)
+map <leader>ev :tabnew $MYVIMRC<CR>
+
+" Toggle spell check.
+map <F7> :setlocal spell!<CR>
+" Spelling mistakes will also be colored red if you uncomment the colors.
+hi SpellBad cterm=underline ctermfg=203 guifg=#ff5f5f
+hi SpellLocal cterm=underline ctermfg=203 guifg=#ff5f5f
+hi SpellRare cterm=underline ctermfg=203 guifg=#ff5f5f
+
+ winpos 250 0
+ winsize 90 20
+
+" Insert date and time in normal and insert modes:
+:nnoremap <F6> "=strftime("%Y-%m-%d %H:%M")<CR>P
+:inoremap <F6> <C-R>=strftime("%Y-%m-%d %H:%M")<CR>
+
+" Insert date in normal and insert modes:
+:nnoremap <F5> "=strftime("%Y-%m-%d")<CR>P
+:inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
+
