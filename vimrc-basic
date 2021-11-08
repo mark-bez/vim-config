@@ -9,7 +9,7 @@ set wrap
 set linebreak
 set nocursorline
 set number
-
+set shortmess=I                " turns off Bram's message on start-up (I)
 color blue
 
 " map Esc key alternative to jk and kj for insert mode and visual mode
