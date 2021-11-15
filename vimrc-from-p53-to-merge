@@ -1,23 +1,26 @@
+set autoindent                 " copy indent from current line when starting a new line
 set autoread                   "autoreload the file if is has been changed outside Vim
-set background=light
+set background=dark
 set backspace=indent,eol,start " Allows you to backspace to the left of the Insert mode entry character
+set backupdir=/tmp//,.
 set cmdheight=2                " give more space for displaying messages
-set complete-=i                " related to ctrl-p completion - see h: set complete
 set cursorline                 " highlight current line - this may slow down performance
 set cpo-=J                     " sets the definition of a sentence to be one space after the period - for two spaces use set cpo+=J
-set encoding=utf-8             " set encoding to UTF-8 (default was "latin1")
-set expandtab smarttab         " convert <TAB> key-presses to spaces
-set filetype=on                " Autodetects the filetype using filename extension
-set hidden                     " Hides buffers instead of closing them. This means that you can have unwritten changes to a file and open a new file using :e, without being forced to write or undo your changes first.
+set directory=C:\Users\echo\vimfiles\tmp\\,.
+set encoding=utf-8        " set encoding to UTF-8 (default was "latin1")
+set expandtab smarttab    " convert <TAB> key-presses to spaces
+set filetype=on
+set hidden                     " It hides buffers instead of closing them. This means that you can have unwritten changes to a file and open a new file using :e, without being forced to write or undo your changes first.
 set history=10000
 set hlsearch                   " highlight search matches
 set incsearch                  " search as characters are entered, which is incremental search
 set laststatus=2               " always show statusline (even with only single window)
-set lazyredraw                 " redraw screen only when needed
+set lazyredraw                 " redraw screen only when we need to
 set linespace=2
-set listchars=tab:Δ\ ,eol:¬
-set matchpairs+=<:>            " Use % to jump between pairs 
-set more                       " Avoids breaking up a long listing into screens with --- more ---
+" set listchars=tab:Δ\ ,eol:¬
+" set list listchars=tab:»
+set list listchars=trail:·,tab:\|·
+set matchpairs+=<:>            " Use % to jump between pairs
 set number                     " show line numbers
 set mouse=a                    " enable mouse support (might not work well on Mac OS X)
 set nobackup
@@ -27,62 +30,50 @@ set nostartofline
 set noswapfile
 set nowrap                     " do not wrap lines
 set numberwidth=6              " sets the gutter width
+set path=C:\Users\echo
 set regexpengine=1
 set relativenumber             " set relative line numbers
 set ruler                      " show line and column number of the cursor on right side of statusline
 set scrolloff=3                " keep three lines between the cursor and the edge of the screen
 set shiftwidth=2               " number of spaces to use for each step of (auto)indent
-set shortmess=I                " turns off Bram's message on start-up (I)
+set shortmess=IS               " turns off Bram's message on start-up as well and stops showing search number below the statusline
 set showcmd
 set sidescroll=1               " scrolls the window left/right to see text outside the window
 set noshowmatch                  "turn off highlight matching parentheses / brackets [{()}]
 set showmode
 set smartcase
-set smartindent                " even better autoindent (e.g. add indent after '{')
+set smartindent         " even better autoindent (e.g. add indent after '{')
+set softtabstop=2       " backspace after pressing <TAB> will remove up to this many spaces
 set smarttab
 set spelllang=en_us
+set spellfile=C:\Users\echo\vimfiles\spell\en.utf-8.add
 set splitbelow
 set splitright
-set tabstop=2                  " width that a <TAB> character displays as
+set tabstop=2           " width that a <TAB> character displays as
 set textwidth=0
 set timeoutlen=500
 set ttyfast
-set updatetime=4000            " related to when a swapfile is written default is 4 s which can cause delays - swapfile currently off
+set updatetime=200             " default is 4 s which can cause delays
 set softtabstop=2              " backspace after pressing <TAB> will remove up to this many spaces
-" set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
+" set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v] " statusline comes from airline settings
 " set statusline=%t%=[%{strlen(&fenc)?&fenc:'none'},%{&ff}]\ %h%m%r%y\ %c\ %l/%L\ %P
+set undodir=C:\Users\echo\vimfiles\undodir     " Saves undo steps to a file so you can redo even after exiting Vim
 set undofile
 set wildmenu                   " visual autocomplete for command menu
 set wildmode=list:longest,full
 
 " -----------------------------------------------------------------------------
+" Set working directory on startup
+" -----------------------------------------------------------------------------
+
+cd $HOME\Documents
+
 " -----------------------------------------------------------------------------
 " Plugins
 " -----------------------------------------------------------------------------
-" -----------------------------------------------------------------------------
 
 " Specify a directory for plugins
-call plug#begin('~/.vim/plugged')
-
-" automatic typo correction
-Plug 'tpope/vim-abolish'
-Plug 'jdelkins/vim-correction'
-
-" prose linter
-Plug 'errata-ai/vale'
-Plug 'lgalke/vim-compiler-vale'
-
-" show registers
-Plug 'junegunn/vim-peekaboo'
-
-" displays a calendar
-Plug 'itchyny/calendar.vim'
-
-" add more targets for text objects
-Plug 'wellle/targets.vim'
-
-" use ctrl-a to increment dates
-Plug 'tpope/vim-speeddating'
+call plug#begin()
 
 " Navigate and manipulate files in a tree view.
 Plug 'lambdalisue/fern.vim'
@@ -116,9 +107,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'stsewd/fzf-checkout.vim'
 
-" Integrates Fugitive with GitHub
-Plug 'tpope/vim-rhubarb'
-
 " Plug 'dense-analysis/ale'
 Plug 'w0rp/ale'
 " post install (yarn install | npm install) then load plugin only for editing supported files
@@ -131,46 +119,43 @@ Plug 'prettier/vim-prettier', {
 " Font size changer
 Plug 'drmikehenry/vim-fontsize'
 
-" Spelling checker enhancer
+" Spelling checker enhancer - lists all spelling errors in the document in the QuickList
 Plug 'inkarkat/vim-ingo-library' | Plug 'inkarkat/vim-SpellCheck'
 
-" Displays CSS code colors
+" Displays CSS code colors in the buffer
 Plug 'ap/vim-css-color'
 
 " vim-sneak
 Plug 'justinmk/vim-sneak'
 
-" colorschemes
-Plug 'morhetz/gruvbox'
-Plug 'phanviet/vim-monokai-pro'
-Plug 'preservim/vim-colors-pencil'
-
 " Git tool
 Plug 'tpope/vim-fugitive'
 
-" for use with xml.vim ftplugin
+" used for xml and pairs with xml.vim ftplugin
 Plug 'https://github.com/adelarsq/vim-matchit'
 
-" List tags in a sidebar
+Plug 'ayu-theme/ayu-vim'
+
+" List Ctags in a sidebar window
 Plug 'preservim/tagbar'
 
-" Adds vertical lines for indented code
-" Plug 'Yggdroot/indentLine'
+" Adds vertical lines for indented code - not sure this is being used
+Plug 'Yggdroot/indentLine'
 
-" colorscheme from tpope
-Plug 'tpope/vim-vividchalk'
+" Surround
+Plug 'tpope/vim-surround'
+
+" Zenburn colorscheme
+Plug 'vim-scripts/Zenburn'
 
 call plug#end()
 
 " -----------------------------------------------------------------------------
+" Colorscheme 
 " -----------------------------------------------------------------------------
-" Plugin-specific settings
-" -----------------------------------------------------------------------------
-" -----------------------------------------------------------------------------
-
-" -----------------------------------------------------------------------------
-" Colorschemes
-" -----------------------------------------------------------------------------
+"
+" colorscheme zenburn
+colorscheme gruvbox
 
 let g:gruvbox_contrast_dark = 'medium'
 
@@ -182,14 +167,24 @@ let g:gruvbox_contrast_dark = 'medium'
 :autocmd InsertEnter,InsertLeave * set cul!
 
 " -----------------------------------------------------------------------------
-" xml.vim ftplugin mappings - must come before the filetype plugin command
+" File Types
 " -----------------------------------------------------------------------------
 
+" xml.vim ftplugin mappings - must come before the filetype plugin command
 " Enables tag closing for hr, br etc in HTML 
 let xml_use_xhtml = 1
 
+" Detect filetypes and run language-specific plugins in the ftplugin folder
+filetype plugin indent on
+
 " -----------------------------------------------------------------------------
-" IndentLine plugin mappings
+" Syntax highlighting and indenting
+" -----------------------------------------------------------------------------
+
+syntax enable
+
+" -----------------------------------------------------------------------------
+" IndentLine plugin mappings - not sure this is being used
 " -----------------------------------------------------------------------------
 
 let g:indentLine_setColors = 0
@@ -197,20 +192,10 @@ let g:indentLine_char_list = ['|']
 map <silent> <F9> :let IndentLinesToggle
 
 " -----------------------------------------------------------------------------
-" vim plugins autocorrection filetypes
-" -----------------------------------------------------------------------------
-
-let g:correction_filetypes = [
-  \ 'text', 'markdown', 'gitcommit', 'plaintex', 'tex',
-  \ 'latex', 'rst', 'asciidoc', 'textile', 'pandoc' ]
-
-" -----------------------------------------------------------------------------
-<<<<<<< HEAD
-=======
 " Basic mappings
 " -----------------------------------------------------------------------------
 
-" set the mapleader
+" set the mapleader - must appear before any leader mappings
 let mapleader = " "
 let g:mapleader = " "
 
@@ -250,9 +235,6 @@ nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> [B :blast<CR>
-" Toggles between last viewed buffer
-nnoremap <silent> <F2> :b#<CR>
-
 
 " Remapping of alt-j, alt-k to move lines up and down
 nnoremap <A-j> :m .+1<CR>==
@@ -263,22 +245,34 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
 "Press * to search for the term under the cursor or a visual selection and then press a key below to replace all instances of it in the current file.
-" nnoremap <F2> :%s///g<Left><Left>
-" nnoremap <F3> :%s///gc<Left><Left><Left>
+nnoremap <F2> :%s///g<Left><Left>
+nnoremap <F3> :%s///gc<Left><Left><Left>
 
 " use tab to move around to bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %
 
-" splits the line on a character in Normal mode when pressing s
+" enter insert mode after moving to the end of a word in Normal mode
+map e ea
+
+" Add an asciidoc bullet from normal mode
+nmap <leader>b a<CR>*
+
+" Add an asciidoc checkbox from normal mode
+nmap <leader>bb a<CR>* [ ]
+
+" splits the line on a character in Normal mode when pressing leader s (for split)
 nnoremap <leader>s i<CR><ESC>
+
+" swaps two words
+map <leader>w dwwP
 
 " open _vimrc file with ,ev (leader edit vim)
 "nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 map <leader>ev :tabnew $MYVIMRC<CR>
 
 " open a new vertical split and switch over to it
-nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <leader>v <C-w>v<C-w>l
 
 " Open a new empty tab
 nnoremap <leader>a :tabnew<CR>
@@ -337,23 +331,79 @@ augroup END
 " Opening window size
 " -----------------------------------------------------------------------------
 
-" winpos 1020 500
-" winsize 140 50
- winpos 1300 300
- winsize 120 40
+ winpos 0 0
+ winsize 300 120
 
 " -----------------------------------------------------------------------------
->>>>>>> 2e2fa1cd8c3c3184621246e08e8df613e71de0cf
 " Airline settings
 " -----------------------------------------------------------------------------
-"
-let g:airline_theme='dark'
-" let g:airline_powerline_fonts = 1
-let g:airline_detect_modified=1
 
-" let g:airline_extensions_anzu_enabled = 1
-" statusline for vim-anzu - not sure if this does anything with airline
-" set statusline=%{anzu#search_status()}
+let g:airline_theme='dark'
+let g:airline_powerline_fonts = 1
+let g:airline_detect_modified=1
+let g:airline#extensions#capslock#symbol = 'CAPS'
+
+" -----------------------------------------------------------------------------
+" Insert date and time
+" -----------------------------------------------------------------------------
+
+" Insert date and time in normal and insert modes:
+:nnoremap <F6> "=strftime("%Y-%m-%d %C:%M")<CR>P
+:inoremap <F6> <C-R>=strftime("%Y-%m-%d %C:%M")<CR>
+
+" Insert date in normal and insert modes:
+:nnoremap <F5> "=strftime("%Y-%m-%d")<CR>P
+:inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
+
+" -----------------------------------------------------------------------------
+" Copy file paths
+" -----------------------------------------------------------------------------
+
+" Copies the current file path from present working directory onwards to the unnamed register so you can paste with p
+:nmap cp :let @" = expand("%")<CR>
+
+" Copies the current complete file path to the unnamed register so you can paste with p
+:nmap cP :let @" = expand("%:p")<CR>
+
+" -----------------------------------------------------------------------------
+" Pretty print formatting
+" -----------------------------------------------------------------------------
+
+" pretty print for use with HTML Tidy
+command! TidyHTML !tidy -mi -html -wrap 0 %
+" command! TidyXML !tidy -mi -xml -wrap 0 %
+command! XMLlint %!xmllint % --format
+" Validate against DITA DTDs when XML file is inside the dtd folder that contains the dtd for the topic type, and the directory is set to the working directory, and the entire higher level set of dtds is present
+command! DITAvalidlocal %!xmllint % --valid --noout
+" command! DITAvalid !xmllint % --valid  C:\Users\mark.beresford\Documents\myfiles\projects-writing\dtd\technicalContent\dtd\concept.dtd --noout
+" Validate against DTDs using catalog file - not sure if this works need to test
+command! DITAvalidlocal %!xmllint % --valid --catalogs --noout
+
+
+" -----------------------------------------------------------------------------
+" Plugin settings, mappings and autocommands
+" -----------------------------------------------------------------------------
+
+" .............................................................................
+" Ctags
+" .............................................................................
+
+nmap <F9> :TagbarToggle<CR>
+
+" .............................................................................
+" FZF plugin mappings
+" .............................................................................
+
+"let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+let $FZF_DEFAULT_OPTS='--reverse'
+
+" Mappings for fzf for finding buffers, files, and tags
+nmap <Leader>; :Buffers<CR>
+nmap <Leader>f :Files<CR>
+nmap <Leader>t :Tags<CR>
+
+" If installed using git
+Plug '~/.fzf'
 
 " .............................................................................
 " Prettier
@@ -404,12 +454,18 @@ let g:asciidoctor_executable = 'asciidoctor'
 " What extensions to use for HTML, default `[]`.
 let g:asciidoctor_extensions = ['asciidoctor-diagram', 'asciidoctor-rouge']
 
+" Path to the custom css - turned off so I can specify as a file attribute
+" let g:asciidoctor_css_path = 'C:\Users\echo\Documents\notes\css'
+
+" Custom css name to use instead of built-in - turned off so I can specify as a file attribute
+" let g:asciidoctor_css = 'asciidoctor-wide.css'
+
 " Conceal *bold*, _italic_, `code` and urls in lists and paragraphs, default `0`.
 " See limitations in end of the README
 let g:asciidoctor_syntax_conceal = 0
 
 " Highlight indented text, default `1`.
-let g:asciidoctor_syntax_indented = 0
+let g:asciidoctor_syntax_indented = 1
 
 " Function to create buffer local mappings and add default compiler
 fun! AsciidoctorMappings()
@@ -449,21 +505,21 @@ let g:ale_fixers = {
 let g:ale_fix_on_save = 0       " Use 1 to activate - run :ALEFix instead if you want to manually fix a file
 let g:ale_linters_explicit = 1
 let g:ale_lint_on_text_changed = 'never'   " Only activate on save
-let g:ale_lint_on_enter = 0    " start when GVim starts = 1. to turn it off use 0
+let g:ale_lint_on_enter = 1    " start when GVim starts = 1. to turn it off use 0
 let g:ale_sign_column_always = 1 " 1 keeps the sign column open at all times
 
 let g:ale_linters = {
  \   'css': ['stylelint', 'prettier'],
- \   'html': ['prettier'],
+ \   'html': ['tidy', 'prettier'],
  \   'javascript': ['eslint'],
  \   'xml': ['xmllint'],
  \}
 
 " let g:CSSLint_FileTypeList = ['css', 'less', 'sass'] " Activates csslint for use in Vim with css files - using stylelint
 let g:ale_set_highlights = 0  " 1 allows highlights for text symbols in the column, 0 disables
-let g:ale_sign_error = 'x'
-" let g:ale_sign_warning = '!'
+" highlight ALEWarning ctermbg=DarkMagenta
 " let g:ale_sign_error = '⚠️' "Less aggressive than the default '>>'
+let g:ale_sign_error = 'x'
 " let g:ale_sign_error = '▲'
 let g:ale_sign_warning = '💡'
 "let g:ale_echo_msg_warning_str = 'Warning 📣'
@@ -534,151 +590,13 @@ augroup FernGroup
 augroup END
 
 " -----------------------------------------------------------------------------
-" -----------------------------------------------------------------------------
-" General standard Vim settings
-" -----------------------------------------------------------------------------
+" Yggdroot/indentLine settings
 " -----------------------------------------------------------------------------
 
-" Syntax highlighting and indenting
-syntax enable
-
-" Detect filetypes and run language-specific plugins in the ftplugin folder
-filetype plugin indent on
-
-" colorscheme
-colorscheme pencil
-
-" -----------------------------------------------------------------------------
-" Opening window size
-" -----------------------------------------------------------------------------
-
-" winpos 1020 500
-" winsize 140 50
- winpos 0 0
- winsize 300 120
-
-
-" -----------------------------------------------------------------------------
-" -----------------------------------------------------------------------------
-" Basic mappings
-" -----------------------------------------------------------------------------
-" -----------------------------------------------------------------------------
-
-" set the mapleader
-let mapleader = " "
-let g:mapleader = " "
-
-" Press * to search for the term under the cursor or a visual selection and
-" then press the mapping below to replace all instances of it in the current file.
-nnoremap <Leader>r :%s///g<Left><Left>
-nnoremap <Leader>rc :%s///gc<Left><Left><Left>
-
-" The same as above but instead of acting on the whole file it will be
-" restricted to the previously visually selected range. You can do that by
-" pressing *, visually selecting the range you want it to apply to and then
-" press a key below to replace all instances of it in the current selection.
-xnoremap <Leader>r :s///g<Left><Left>
-xnoremap <Leader>rc :s///gc<Left><Left><Left>
-
-" turn off search highlighting with <CR> (carriage-return)
-nnoremap <CR> :nohlsearch<CR><CR>
-
-" map Esc key alternative to jk and kj for insert mode and visual mode
-inoremap jk <esc>
-inoremap kj <esc>
-xnoremap jk <esc>
-xnoremap kj <esc>
-" map the ENTER key to switch back to Normal mode from Insert and Visual
-" Use Caps Lock ENTER (mapped to Ctrl) to add a line return from Insert mode
-" inoremap <ENTER> <esc>
-" xnoremap <ENTER> <esc>
-
-" Change delete last word in insert mode to Ctrl-Backspace
-inoremap <silent> <C-BS> <C-w> 
-
-" remap ; to : for use with :w etc
-nnoremap ; :
-
-" Shortcuts for changing the window focus
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-
-" move among buffers
-nnoremap <silent> [b :bprevious<CR>
-nnoremap <silent> ]b :bnext<CR>
-nnoremap <silent> [B :bfirst<CR>
-nnoremap <silent> [B :blast<CR>
-" Toggles between last viewed buffer
-nnoremap <silent> <F2> :b#<CR>
-
-
-" Remapping of alt-j, alt-k to move lines up and down
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <esc>:m .+1<CR>==gi
-inoremap <A-k> <esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
-
-"Press * to search for the term under the cursor or a visual selection and then press a key below to replace all instances of it in the current file.
-" nnoremap <F2> :%s///g<Left><Left>
-" nnoremap <F3> :%s///gc<Left><Left><Left>
-
-" use tab to move around to bracket pairs
-nnoremap <tab> %
-vnoremap <tab> %
-
-" splits the line on a character in Normal mode when pressing s
-nnoremap <leader>s i<CR><ESC>
-
-" open _vimrc file with ,ev (leader edit vim)
-"nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
-map <leader>ev :tabnew $MYVIMRC<CR>
-
-" open a new vertical split and switch over to it
-nnoremap <leader>w <C-w>v<C-w>l
-
-" Open a new empty tab
-nnoremap <leader>a :tabnew<CR>
-
-" -----------------------------------------------------------------------------
-" Copy file paths
-" -----------------------------------------------------------------------------
-
-" Copies the current file path from present working directory onwards to the unnamed register so you can paste with p
-:nmap cp :let @" = expand("%")<CR>
-
-" Copies the current complete file path to the unnamed register so you can paste with p
-:nmap cP :let @" = expand("%:p")<CR>
-
-" -----------------------------------------------------------------------------
-" Spell checking
-" -----------------------------------------------------------------------------
-
-" Toggle spell check.
-map <F7> :setlocal spell!<CR>
-
-" Spelling mistakes will also be colored red if you uncomment the colors.
-hi SpellBad cterm=underline ctermfg=203 guifg=#ff5f5f
-hi SpellLocal cterm=underline ctermfg=203 guifg=#ff5f5f
-hi SpellRare cterm=underline ctermfg=203 guifg=#ff5f5f
-" hi SpellCap cterm=underline ctermfg=203 guifg=DarkMagenta
-
-" -----------------------------------------------------------------------------
-" Toggle line numbers
-" -----------------------------------------------------------------------------
-
-" Use F8 to toggle relative line numbers and regular line numbers.
-nmap <F8> :set invrelativenumber<CR>
-
-" -----------------------------------------------------------------------------
-" Remove trailing whitespace
-" -----------------------------------------------------------------------------
-
-" Use F4 to remove trailing whitespace without removing empty lines
-:nnoremap <silent> <F4> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+" let g:indentLine_char = '|'
+let g:indentLine_first_char = ''
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_setColors = 1
 
 " -----------------------------------------------------------------------------
 " Quickfix list
@@ -687,85 +605,6 @@ nmap <F8> :set invrelativenumber<CR>
 " Navigate quickfix list with ease
 nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
-
-" Toggle quickfix window.
-function! QuickFix_toggle()
-    for i in range(1, winnr('$'))
-        let bnum = winbufnr(i)
-        if getbufvar(bnum, '&buftype') == 'quickfix'
-            cclose
-            return
-        endif
-    endfor
-
-    copen
-endfunction
-nnoremap <silent> <Leader>c :call QuickFix_toggle()<CR>
-
-" -----------------------------------------------------------------------------
-" -----------------------------------------------------------------------------
-" Basic autocommands
-" -----------------------------------------------------------------------------
-" -----------------------------------------------------------------------------
-
-" Update a buffer's contents on focus if it changed outside of Vim.
-au FocusGained,BufEnter * :checktime
-
-" Unset paste on InsertLeave.
-" autocmd InsertLeave * silent! set nopaste
-
-" Only show the cursor line in the active buffer.
-augroup CursorLine
-    au!
-    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
-
-" -----------------------------------------------------------------------------
-" Insert date and time
-" -----------------------------------------------------------------------------
-
-" Insert date and time in normal and insert modes:
-:nnoremap <F6> "=strftime("%Y-%m-%d %H:%M")<CR>P
-:inoremap <F6> <C-R>=strftime("%Y-%m-%d %H:%M")<CR>
-
-" Insert date in normal and insert modes:
-:nnoremap <F5> "=strftime("%Y-%m-%d")<CR>P
-:inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
-
-
-" -----------------------------------------------------------------------------
-" Pretty print formatting
-" -----------------------------------------------------------------------------
-
-" pretty print for use with HTML Tidy
-command! TidyHTML !tidy -mi -html -wrap 0 %
-" command! TidyXML !tidy -mi -xml -wrap 0 %
-
-" -----------------------------------------------------------------------------
-" Plugin settings, mappings and autocommands
-" -----------------------------------------------------------------------------
-
-" .............................................................................
-" FZF plugin mappings
-" .............................................................................
-
-"let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
-let $FZF_DEFAULT_OPTS='--reverse'
-
-" Mappings for fzf for finding buffers, files, and tags
-nmap <Leader>b :Buffers<CR>
-nmap <Leader>f :Files<CR>
-nmap <Leader>t :Tags<CR>
-
-" If installed using git
-Plug '~/.fzf'
-
-" .............................................................................
-" ctags tagbar toggle
-" .............................................................................
-
-nmap <F9> :TagbarToggle<CR>
 
 " -----------------------------------------------------------------------------
 " Autocomplete
@@ -809,7 +648,7 @@ nmap <Leader>i :%!xsltlint<CR>
 " Enable use of standard Windows copy and paste commands
 " -----------------------------------------------------------------------------
 
-" use ctrl-c in normal and visual modes to store in the Windows clipboar
+" use ctrl-c in normal and visual modes to store in the Windows clipboard
 nnoremap <C-c> "+y
 vnoremap <C-c> "+y
 
@@ -818,20 +657,6 @@ map <C-p> "+p
 
 " use ctrl-x in normal and visual modes of Vim to cut and store in the Windows clipboard
 map <C-x> "+x
-
-" -----------------------------------------------------------------------------
-" Commands to make editing easier
-" ------------------------------------------------------------------------
-
-" exchange word under cursor with the next word without moving the cursor
-" nnoremap gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o><C-l>
-nnoremap gw dawwP
-
-" push word under cursor to the left
-nnoremap <leader><Left> "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o><C-l>
-
-" push word under cursor to the right
-nnoremap <leader><Right> "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o>/\w\+\_W\+<CR><C-l>
 
 " -----------------------------------------------------------------------------
 " Set current directory on the fly
@@ -848,24 +673,3 @@ nnoremap <silent> <F3> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>
 noremap <leader>dt a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd"><CR><task id="abcd"><CR><taskbody><CR><title>Title</title><CR></taskbody><CR></task><ESC>
 noremap <leader>dc a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd"><CR><concept id="abcd"><CR><conbody><CR><title>Title</title><CR></conbody><CR></concept><ESC>
 noremap <leader>ht a<!DOCTYPE html><CR><html><CR><head><CR><title>Title</title><CR><link rel="stylesheet" href="style.css"><CR></head><CR><body><CR><h1>Heading1</h1><CR></body><CR></html><ESC>
-
-" -----------------------------------------------------------------------------
-" Computer-specific settings
-" -----------------------------------------------------------------------------
-
-" Sets current directory on startup to $HOME, but not sure if this is needed
-cd $HOME
-
-" set undodir=C:\Users\echo\vimfiles\undodir     " P53 Saves undo steps to a file so you can redo even after exiting Vim
-set undodir=~/Documents/vim-undo-files     " E545 Saves undo steps to a file so you can redo even after exiting Vim
-" set spellfile=C:\Users\echo\vimfiles\spell\en.utf-8.add
-" set spellfile=~/Documents/repos/vim-config/en.utf-8.add
-" set directory=/tmp//,.
-" set backupdir=/tmp//,.
-
-" Path to the custom css - turned off so I can specify as a file attribute
-" let g:asciidoctor_css_path = 'C:\Users\echo\Documents\notes\css'
-
-" Custom css name to use instead of built-in - turned off so I can specify as a file attribute
-" let g:asciidoctor_css = 'asciidoctor-wide.css'
-
