@@ -1,4 +1,3 @@
-set autoindent                 " copy indent from current line when starting a new line
 set autoread                   "autoreload the file if is has been changed outside Vim
 set background=light
 set backspace=indent,eol,start " Allows you to backspace to the left of the Insert mode entry character
@@ -8,17 +7,17 @@ set cursorline                 " highlight current line - this may slow down per
 set cpo-=J                     " sets the definition of a sentence to be one space after the period - for two spaces use set cpo+=J
 set encoding=utf-8             " set encoding to UTF-8 (default was "latin1")
 set expandtab smarttab         " convert <TAB> key-presses to spaces
-set filetype=on
-set hidden                     " It hides buffers instead of closing them. This means that you can have unwritten changes to a file and open a new file using :e, without being forced to write or undo your changes first.
+set filetype=on                " Autodetects the filetype using filename extension
+set hidden                     " Hides buffers instead of closing them. This means that you can have unwritten changes to a file and open a new file using :e, without being forced to write or undo your changes first.
 set history=10000
 set hlsearch                   " highlight search matches
 set incsearch                  " search as characters are entered, which is incremental search
 set laststatus=2               " always show statusline (even with only single window)
-set lazyredraw                 " redraw screen only when we need to
+set lazyredraw                 " redraw screen only when needed
 set linespace=2
 set listchars=tab:Δ\ ,eol:¬
 set matchpairs+=<:>            " Use % to jump between pairs 
-set more                     " Avoids breaking up a long listing into screens with --- more ---
+set more                       " Avoids breaking up a long listing into screens with --- more ---
 set number                     " show line numbers
 set mouse=a                    " enable mouse support (might not work well on Mac OS X)
 set nobackup
@@ -56,11 +55,10 @@ set undofile
 set wildmenu                   " visual autocomplete for command menu
 set wildmode=list:longest,full
 
-
-cd $HOME " Sets current directory on startup
-
+" -----------------------------------------------------------------------------
 " -----------------------------------------------------------------------------
 " Plugins
+" -----------------------------------------------------------------------------
 " -----------------------------------------------------------------------------
 
 " Specify a directory for plugins
@@ -79,6 +77,9 @@ Plug 'junegunn/vim-peekaboo'
 
 " displays a calendar
 Plug 'itchyny/calendar.vim'
+
+" add more targets for text objects
+Plug 'wellle/targets.vim'
 
 " use ctrl-a to increment dates
 Plug 'tpope/vim-speeddating'
@@ -162,12 +163,16 @@ Plug 'tpope/vim-vividchalk'
 call plug#end()
 
 " -----------------------------------------------------------------------------
-" Colorscheme 
+" -----------------------------------------------------------------------------
+" Plugin-specific settings
+" -----------------------------------------------------------------------------
 " -----------------------------------------------------------------------------
 
-" let g:gruvbox_contrast_dark = 'medium'
+" -----------------------------------------------------------------------------
+" Colorschemes
+" -----------------------------------------------------------------------------
 
-colorscheme pencil
+let g:gruvbox_contrast_dark = 'medium'
 
 " -----------------------------------------------------------------------------
 " Cursor line - see gvimrc for other cursor line settings
@@ -176,21 +181,12 @@ colorscheme pencil
 " shows/hides cursor line when switching modes
 :autocmd InsertEnter,InsertLeave * set cul!
 
-" .............................................................................
+" -----------------------------------------------------------------------------
 " xml.vim ftplugin mappings - must come before the filetype plugin command
-" .............................................................................
+" -----------------------------------------------------------------------------
 
 " Enables tag closing for hr, br etc in HTML 
 let xml_use_xhtml = 1
-
-" -----------------------------------------------------------------------------
-" Syntax highlighting and indenting
-" -----------------------------------------------------------------------------
-
-syntax enable
-
-" Detect filetypes and run language-specific plugins in the ftplugin folder
-filetype plugin indent on
 
 " -----------------------------------------------------------------------------
 " IndentLine plugin mappings
@@ -209,142 +205,6 @@ let g:correction_filetypes = [
   \ 'latex', 'rst', 'asciidoc', 'textile', 'pandoc' ]
 
 " -----------------------------------------------------------------------------
-" Basic mappings
-" -----------------------------------------------------------------------------
-
-" set the mapleader
-let mapleader = " "
-let g:mapleader = " "
-
-" Press * to search for the term under the cursor or a visual selection and
-" then press a key below to replace all instances of it in the current file.
-nnoremap <Leader>r :%s///g<Left><Left>
-nnoremap <Leader>rc :%s///gc<Left><Left><Left>
-
-" The same as above but instead of acting on the whole file it will be
-" restricted to the previously visually selected range. You can do that by
-" pressing *, visually selecting the range you want it to apply to and then
-" press a key below to replace all instances of it in the current selection.
-xnoremap <Leader>r :s///g<Left><Left>
-xnoremap <Leader>rc :s///gc<Left><Left><Left>
-
-" turn off search highlighting with <CR> (carriage-return)
-nnoremap <CR> :nohlsearch<CR><CR>
-
-" map Esc key alternative to jk and kj for insert mode and visual mode
-inoremap jk <esc>
-inoremap kj <esc>
-xnoremap jk <esc>
-xnoremap kj <esc>
-" map the ENTER key to switch back to Normal mode from Insert and Visual
-" Use Caps Lock ENTER (mapped to Ctrl) to add a line return from Insert mode
-" inoremap <ENTER> <esc>
-" xnoremap <ENTER> <esc>
-
-" Shortcuts for changing the window focus
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-
-" move among buffers
-nnoremap <silent> [b :bprevious<CR>
-nnoremap <silent> ]b :bnext<CR>
-nnoremap <silent> [B :bfirst<CR>
-nnoremap <silent> [B :blast<CR>
-" Toggles between last viewed buffer
-nnoremap <silent> <F2> :b#<CR>
-
-
-" Remapping of alt-j, alt-k to move lines up and down
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <esc>:m .+1<CR>==gi
-inoremap <A-k> <esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
-
-"Press * to search for the term under the cursor or a visual selection and then press a key below to replace all instances of it in the current file.
-" nnoremap <F2> :%s///g<Left><Left>
-" nnoremap <F3> :%s///gc<Left><Left><Left>
-
-" use tab to move around to bracket pairs
-nnoremap <tab> %
-vnoremap <tab> %
-
-" splits the line on a character in Normal mode when pressing s
-nnoremap <leader>s i<CR><ESC>
-
-" open _vimrc file with ,ev (leader edit vim)
-"nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
-map <leader>ev :tabnew $MYVIMRC<CR>
-
-" open a new vertical split and switch over to it
-nnoremap <leader>w <C-w>v<C-w>l
-
-" Open a new empty tab
-nnoremap <leader>a :tabnew<CR>
-
-" -----------------------------------------------------------------------------
-" Spell checking
-" -----------------------------------------------------------------------------
-
-" Toggle spell check.
-map <F7> :setlocal spell!<CR>
-
-" Spelling mistakes will also be colored red if you uncomment the colors.
-hi SpellBad cterm=underline ctermfg=203 guifg=#ff5f5f
-hi SpellLocal cterm=underline ctermfg=203 guifg=#ff5f5f
-hi SpellRare cterm=underline ctermfg=203 guifg=#ff5f5f
-" hi SpellCap cterm=underline ctermfg=203 guifg=DarkMagenta
-
-" Use F8 to toggle relative line numbers and regular line numbers.
-nmap <F8> :set invrelativenumber<CR>
-
-" Use F4 to remove trailing whitespace without removing empty lines
-:nnoremap <silent> <F4> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
-
-" Toggle quickfix window.
-function! QuickFix_toggle()
-    for i in range(1, winnr('$'))
-        let bnum = winbufnr(i)
-        if getbufvar(bnum, '&buftype') == 'quickfix'
-            cclose
-            return
-        endif
-    endfor
-
-    copen
-endfunction
-nnoremap <silent> <Leader>c :call QuickFix_toggle()<CR>
-
-" -----------------------------------------------------------------------------
-" Basic autocommands
-" -----------------------------------------------------------------------------
-
-" Update a buffer's contents on focus if it changed outside of Vim.
-au FocusGained,BufEnter * :checktime
-
-" Unset paste on InsertLeave.
-" autocmd InsertLeave * silent! set nopaste
-
-" Only show the cursor line in the active buffer.
-augroup CursorLine
-    au!
-    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
-
-" -----------------------------------------------------------------------------
-" Opening window size
-" -----------------------------------------------------------------------------
-
-" winpos 1020 500
-" winsize 140 50
- winpos 0 0
- winsize 300 120
-
-" -----------------------------------------------------------------------------
 " Airline settings
 " -----------------------------------------------------------------------------
 "
@@ -355,61 +215,6 @@ let g:airline_detect_modified=1
 " let g:airline_extensions_anzu_enabled = 1
 " statusline for vim-anzu - not sure if this does anything with airline
 " set statusline=%{anzu#search_status()}
-
-" -----------------------------------------------------------------------------
-" Insert date and time
-" -----------------------------------------------------------------------------
-
-" Insert date and time in normal and insert modes:
-:nnoremap <F6> "=strftime("%Y-%m-%d %H:%M")<CR>P
-:inoremap <F6> <C-R>=strftime("%Y-%m-%d %H:%M")<CR>
-
-" Insert date in normal and insert modes:
-:nnoremap <F5> "=strftime("%Y-%m-%d")<CR>P
-:inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
-
-" -----------------------------------------------------------------------------
-" Copy file paths
-" -----------------------------------------------------------------------------
-
-" Copies the current file path from present working directory onwards to the unnamed register so you can paste with p
-:nmap cp :let @" = expand("%")<CR>
-
-" Copies the current complete file path to the unnamed register so you can paste with p
-:nmap cP :let @" = expand("%:p")<CR>
-
-" -----------------------------------------------------------------------------
-" Pretty print formatting
-" -----------------------------------------------------------------------------
-
-" pretty print for use with HTML Tidy
-command! TidyHTML !tidy -mi -html -wrap 0 %
-" command! TidyXML !tidy -mi -xml -wrap 0 %
-
-" -----------------------------------------------------------------------------
-" Plugin settings, mappings and autocommands
-" -----------------------------------------------------------------------------
-
-" .............................................................................
-" FZF plugin mappings
-" .............................................................................
-
-"let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
-let $FZF_DEFAULT_OPTS='--reverse'
-
-" Mappings for fzf for finding buffers, files, and tags
-nmap <Leader>b :Buffers<CR>
-nmap <Leader>f :Files<CR>
-nmap <Leader>t :Tags<CR>
-
-" If installed using git
-Plug '~/.fzf'
-
-" .............................................................................
-" ctags tagbar toggle
-" .............................................................................
-
-nmap <F9> :TagbarToggle<CR>
 
 " .............................................................................
 " Prettier
@@ -589,27 +394,239 @@ augroup FernGroup
   autocmd FileType fern call FernInit()
 augroup END
 
-
-" Indent line for subtle light colorscheme
 " -----------------------------------------------------------------------------
-" << INDENT LINE >> {{{
-let g:indentLine_char = '¦'
+" -----------------------------------------------------------------------------
+" General standard Vim settings
+" -----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 
-" Choose one or the other
+" Syntax highlighting and indenting
+syntax enable
 
-" subtle light
-let g:indentLine_color_gui = "#eee8d5"
+" Detect filetypes and run language-specific plugins in the ftplugin folder
+filetype plugin indent on
 
-" subtle dark
-let g:indentLine_color_gui = "#073642"
-" }}}
+" colorscheme
+colorscheme pencil
 
+" -----------------------------------------------------------------------------
+" Opening window size
+" -----------------------------------------------------------------------------
+
+" winpos 1020 500
+" winsize 140 50
+ winpos 0 0
+ winsize 300 120
+
+
+" -----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
+" Basic mappings
+" -----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
+
+" set the mapleader
+let mapleader = " "
+let g:mapleader = " "
+
+" Press * to search for the term under the cursor or a visual selection and
+" then press the mapping below to replace all instances of it in the current file.
+nnoremap <Leader>r :%s///g<Left><Left>
+nnoremap <Leader>rc :%s///gc<Left><Left><Left>
+
+" The same as above but instead of acting on the whole file it will be
+" restricted to the previously visually selected range. You can do that by
+" pressing *, visually selecting the range you want it to apply to and then
+" press a key below to replace all instances of it in the current selection.
+xnoremap <Leader>r :s///g<Left><Left>
+xnoremap <Leader>rc :s///gc<Left><Left><Left>
+
+" turn off search highlighting with <CR> (carriage-return)
+nnoremap <CR> :nohlsearch<CR><CR>
+
+" map Esc key alternative to jk and kj for insert mode and visual mode
+inoremap jk <esc>
+inoremap kj <esc>
+xnoremap jk <esc>
+xnoremap kj <esc>
+" map the ENTER key to switch back to Normal mode from Insert and Visual
+" Use Caps Lock ENTER (mapped to Ctrl) to add a line return from Insert mode
+" inoremap <ENTER> <esc>
+" xnoremap <ENTER> <esc>
+
+" Change delete last word in insert mode to Ctrl-Backspace
+inoremap <silent> <C-BS> <C-w> 
+
+" remap ; to : for use with :w etc
+nnoremap ; :
+
+" Shortcuts for changing the window focus
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" move among buffers
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> [B :blast<CR>
+" Toggles between last viewed buffer
+nnoremap <silent> <F2> :b#<CR>
+
+
+" Remapping of alt-j, alt-k to move lines up and down
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <esc>:m .+1<CR>==gi
+inoremap <A-k> <esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
+"Press * to search for the term under the cursor or a visual selection and then press a key below to replace all instances of it in the current file.
+" nnoremap <F2> :%s///g<Left><Left>
+" nnoremap <F3> :%s///gc<Left><Left><Left>
+
+" use tab to move around to bracket pairs
+nnoremap <tab> %
+vnoremap <tab> %
+
+" splits the line on a character in Normal mode when pressing s
+nnoremap <leader>s i<CR><ESC>
+
+" open _vimrc file with ,ev (leader edit vim)
+"nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+map <leader>ev :tabnew $MYVIMRC<CR>
+
+" open a new vertical split and switch over to it
+nnoremap <leader>w <C-w>v<C-w>l
+
+" Open a new empty tab
+nnoremap <leader>a :tabnew<CR>
+
+" -----------------------------------------------------------------------------
+" Copy file paths
+" -----------------------------------------------------------------------------
+
+" Copies the current file path from present working directory onwards to the unnamed register so you can paste with p
+:nmap cp :let @" = expand("%")<CR>
+
+" Copies the current complete file path to the unnamed register so you can paste with p
+:nmap cP :let @" = expand("%:p")<CR>
+
+" -----------------------------------------------------------------------------
+" Spell checking
+" -----------------------------------------------------------------------------
+
+" Toggle spell check.
+map <F7> :setlocal spell!<CR>
+
+" Spelling mistakes will also be colored red if you uncomment the colors.
+hi SpellBad cterm=underline ctermfg=203 guifg=#ff5f5f
+hi SpellLocal cterm=underline ctermfg=203 guifg=#ff5f5f
+hi SpellRare cterm=underline ctermfg=203 guifg=#ff5f5f
+" hi SpellCap cterm=underline ctermfg=203 guifg=DarkMagenta
+
+" -----------------------------------------------------------------------------
+" Toggle line numbers
+" -----------------------------------------------------------------------------
+
+" Use F8 to toggle relative line numbers and regular line numbers.
+nmap <F8> :set invrelativenumber<CR>
+
+" -----------------------------------------------------------------------------
+" Remove trailing whitespace
+" -----------------------------------------------------------------------------
+
+" Use F4 to remove trailing whitespace without removing empty lines
+:nnoremap <silent> <F4> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+
+" -----------------------------------------------------------------------------
 " Quickfix list
 " -----------------------------------------------------------------------------
 
 " Navigate quickfix list with ease
 nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
+
+" Toggle quickfix window.
+function! QuickFix_toggle()
+    for i in range(1, winnr('$'))
+        let bnum = winbufnr(i)
+        if getbufvar(bnum, '&buftype') == 'quickfix'
+            cclose
+            return
+        endif
+    endfor
+
+    copen
+endfunction
+nnoremap <silent> <Leader>c :call QuickFix_toggle()<CR>
+
+" -----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
+" Basic autocommands
+" -----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
+
+" Update a buffer's contents on focus if it changed outside of Vim.
+au FocusGained,BufEnter * :checktime
+
+" Unset paste on InsertLeave.
+" autocmd InsertLeave * silent! set nopaste
+
+" Only show the cursor line in the active buffer.
+augroup CursorLine
+    au!
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
+
+" -----------------------------------------------------------------------------
+" Insert date and time
+" -----------------------------------------------------------------------------
+
+" Insert date and time in normal and insert modes:
+:nnoremap <F6> "=strftime("%Y-%m-%d %H:%M")<CR>P
+:inoremap <F6> <C-R>=strftime("%Y-%m-%d %H:%M")<CR>
+
+" Insert date in normal and insert modes:
+:nnoremap <F5> "=strftime("%Y-%m-%d")<CR>P
+:inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
+
+
+" -----------------------------------------------------------------------------
+" Pretty print formatting
+" -----------------------------------------------------------------------------
+
+" pretty print for use with HTML Tidy
+command! TidyHTML !tidy -mi -html -wrap 0 %
+" command! TidyXML !tidy -mi -xml -wrap 0 %
+
+" -----------------------------------------------------------------------------
+" Plugin settings, mappings and autocommands
+" -----------------------------------------------------------------------------
+
+" .............................................................................
+" FZF plugin mappings
+" .............................................................................
+
+"let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+let $FZF_DEFAULT_OPTS='--reverse'
+
+" Mappings for fzf for finding buffers, files, and tags
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>f :Files<CR>
+nmap <Leader>t :Tags<CR>
+
+" If installed using git
+Plug '~/.fzf'
+
+" .............................................................................
+" ctags tagbar toggle
+" .............................................................................
+
+nmap <F9> :TagbarToggle<CR>
 
 " -----------------------------------------------------------------------------
 " Autocomplete
@@ -663,6 +680,10 @@ map <C-p> "+p
 " use ctrl-x in normal and visual modes of Vim to cut and store in the Windows clipboard
 map <C-x> "+x
 
+" -----------------------------------------------------------------------------
+" Commands to make editing easier
+" ------------------------------------------------------------------------
+
 " exchange word under cursor with the next word without moving the cursor
 " nnoremap gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o><C-l>
 nnoremap gw dawwP
@@ -692,6 +713,9 @@ noremap <leader>ht a<!DOCTYPE html><CR><html><CR><head><CR><title>Title</title><
 " -----------------------------------------------------------------------------
 " Computer-specific settings
 " -----------------------------------------------------------------------------
+
+" Sets current directory on startup to $HOME, but not sure if this is needed
+cd $HOME
 
 " set undodir=C:\Users\echo\vimfiles\undodir     " P53 Saves undo steps to a file so you can redo even after exiting Vim
 set undodir=~/Documents/vim-undo-files     " E545 Saves undo steps to a file so you can redo even after exiting Vim
