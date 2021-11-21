@@ -14,7 +14,8 @@ highlight iCursor guifg=white guibg=steelblue
 set guicursor=n-v-c:block-Cursor-blinkwait3000
 
 " sets the Insert mode cursor to an I bar
-set guicursor=i:ver30-iCursor-blinkwait3000
+" set guicursor=i:ver30-iCursor-blinkwait3000
+set guicursor=i:block-Cursor-blinkwait3000
 
 " set guifont=Monoid:h13:cANSI:qDRAFT
 set guifont=Roboto_Mono:h14:W300

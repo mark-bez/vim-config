@@ -1,6 +1,5 @@
 set autoindent                 " copy indent from current line when starting a new line
 set autoread                   "autoreload the file if is has been changed outside Vim
-set background=light
 set backspace=indent,eol,start " Allows you to backspace to the left of the Insert mode entry character
 set cmdheight=2                " give more space for displaying messages
 set complete-=i                " related to ctrl-p completion - see h: set complete
@@ -156,9 +155,6 @@ Plug 'preservim/tagbar'
 " Adds vertical lines for indented code
 " Plug 'Yggdroot/indentLine'
 
-" colorscheme from tpope
-Plug 'tpope/vim-vividchalk'
-
 call plug#end()
 
 " -----------------------------------------------------------------------------
@@ -168,6 +164,8 @@ call plug#end()
 " let g:gruvbox_contrast_dark = 'medium'
 
 colorscheme pencil
+colorscheme gruvbox
+set background=dark
 
 " -----------------------------------------------------------------------------
 " Cursor line - see gvimrc for other cursor line settings
@@ -706,3 +704,39 @@ set undodir=~/Documents/vim-undo-files     " E545 Saves undo steps to a file so 
 " Custom css name to use instead of built-in - turned off so I can specify as a file attribute
 " let g:asciidoctor_css = 'asciidoctor-wide.css'
 
+" -----------------------------------------------------------------------------
+" GVim-specific settings
+" -----------------------------------------------------------------------------
+
+if has("gui_running")
+
+" set guioptions-=T " Removes top toolbar
+set guioptions=rb " sets the right and bottom scrollbars and hides the menubar due to a missimg m
+set guitablabel=%N\ %t\ %M  " Sets the syntax of the tab label to a tab number and the filename of the current window.
+
+highlight CursorLineNr gui=bold guifg=#ffffff guibg=#c0d0e0
+
+" Normal mode cursor - may be overridden by colorscheme
+highlight nCursor guifg=white guibg=steelblue
+
+" Insert mode cursor - may be overridden by colorscheme
+highlight iCursor guifg=white guibg=steelblue
+
+" sets the Normal, Visual, Command mode cursors to block
+set guicursor=n-v-c:block-Cursor-blinkon0
+
+" sets the Insert mode cursor to an I bar
+" set guicursor=i:ver30-iCursor-blinkwait3000
+
+" sets the Insert mode cursor to block
+set guicursor=i:block-Cursor
+
+" set guifont=Monoid:h13:cANSI:qDRAFT
+set guifont=Roboto_Mono:h14:W300
+" set guifont=Input_Mono:h14:W300
+"
+set encoding=utf-8
+set linespace=2
+set sidescroll=1 " scrolls the window left/right to see text outside the window
+
+endif
