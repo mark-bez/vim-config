@@ -623,10 +623,6 @@ set guicursor=n-v-c:block-Cursor-blinkon0
 " sets the Insert mode cursor to block
 set guicursor=i:block-Cursor
 
-" set guifont=Monoid:h13:cANSI:qDRAFT
-set guifont=Roboto_Mono:h14:W300
-" set guifont=Input_Mono:h14:W300
-"
 set encoding=utf-8
 set linespace=2
 set sidescroll=1 " scrolls the window left/right to see text outside the window

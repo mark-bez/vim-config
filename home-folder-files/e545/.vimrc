@@ -1,7 +1,7 @@
 " Redirect to vimrc files under Git control
 
 call plug#begin('~/.vim/plugged')
-source $HOME\Documents\repos\vim-config\vimrc-plugins
+source $HOME/Documents/repos/vim-config/vimrc-plugins
 call plug#end()
 
 source ~/Documents/repos/vim-config/vimrc-shared
