@@ -1,0 +1,90 @@
+" automatic typo correction
+Plug 'tpope/vim-abolish'
+Plug 'jdelkins/vim-correction'
+
+" prose linter
+Plug 'errata-ai/vale'
+Plug 'lgalke/vim-compiler-vale'
+
+" show registers
+Plug 'junegunn/vim-peekaboo'
+
+" displays a calendar
+Plug 'itchyny/calendar.vim'
+
+" use ctrl-a to increment dates
+Plug 'tpope/vim-speeddating'
+
+" Navigate and manipulate files in a tree view.
+Plug 'lambdalisue/fern.vim'
+
+" Run a diff on 2 directories.
+Plug 'will133/vim-dirdiff'
+
+" Briefly highlight which text was yanked.
+Plug 'machakann/vim-highlightedyank'
+
+" Highlight which character to jump to when using horizontal movement keys.
+Plug 'unblevable/quick-scope'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Show git file changes in the gutter.
+Plug 'mhinz/vim-signify'
+
+" Asciidoctor plugins
+Plug 'habamax/vim-asciidoctor'
+
+" Automatically clear search highlights after you move your cursor.
+Plug 'haya14busa/incsearch.vim'
+
+" emmet
+Plug 'mattn/emmet-vim'
+
+" Integrate fzf with Vim.
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'stsewd/fzf-checkout.vim'
+
+" Integrates Fugitive with GitHub
+Plug 'tpope/vim-rhubarb'
+
+" Plug 'dense-analysis/ale'
+Plug 'w0rp/ale'
+" post install (yarn install | npm install) then load plugin only for editing supported files
+
+" Prettifying code files
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html', 'xml'] }
+
+" Font size changer
+Plug 'drmikehenry/vim-fontsize'
+
+" Spelling checker enhancer
+Plug 'inkarkat/vim-ingo-library' | Plug 'inkarkat/vim-SpellCheck'
+
+" Displays CSS code colors
+Plug 'ap/vim-css-color'
+
+" vim-sneak
+" Plug 'justinmk/vim-sneak'
+
+" colorschemes
+Plug 'morhetz/gruvbox'
+Plug 'phanviet/vim-monokai-pro'
+Plug 'preservim/vim-colors-pencil'
+
+" Git tool
+Plug 'tpope/vim-fugitive'
+
+" for use with xml.vim ftplugin
+Plug 'https://github.com/adelarsq/vim-matchit'
+
+" List tags in a sidebar
+Plug 'preservim/tagbar'
+
+" Adds vertical lines for indented code
+" Plug 'Yggdroot/indentLine'
+

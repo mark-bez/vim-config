@@ -1,0 +1,1 @@
+Each folder contains a backup copy of the files in the $HOME directory _vimrc or .vimrc file.
