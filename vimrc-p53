@@ -1,0 +1,6 @@
+" -----------------------------------------------------------------------------
+" Computer-specific settings - Lenovo P53
+" -----------------------------------------------------------------------------
+
+set undodir=$HOME\Documents\vim-undo-files     " Saves undo steps to a file so you can redo even after exiting Vim
+set spellfile=$HOME\Documents\repos\vim-config\en.utf-8.add

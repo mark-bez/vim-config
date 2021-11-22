@@ -1,0 +1,1 @@
+I need to edit this file to parallel the file for P53 and then copy it and use it on my Ubuntu computer $HOME folder.

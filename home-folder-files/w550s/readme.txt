@@ -1,0 +1,1 @@
+I need to edit this vimrc to parallel the file for P53 and then copy it and use it on my W550s laptop
