@@ -69,7 +69,7 @@ Plug 'inkarkat/vim-ingo-library' | Plug 'inkarkat/vim-SpellCheck'
 Plug 'ap/vim-css-color'
 
 " vim-sneak
-" Plug 'justinmk/vim-sneak'
+Plug 'justinmk/vim-sneak'
 
 " colorschemes
 Plug 'morhetz/gruvbox'

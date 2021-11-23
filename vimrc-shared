@@ -347,6 +347,8 @@ augroup END
 " sneak.vimunblevable/quick-scope
 " .............................................................................
 
+" puts codes onto repeat matches so you can type one more letter to get
+" where you want to go
 let g:sneak#label = 1
 
 " .............................................................................
