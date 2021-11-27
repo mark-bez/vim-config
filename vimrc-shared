@@ -347,6 +347,8 @@ augroup END
 " sneak.vimunblevable/quick-scope
 " .............................................................................
 
+" puts codes onto repeat matches so you can type one more letter to get
+" where you want to go
 let g:sneak#label = 1
 
 " .............................................................................
@@ -623,8 +625,6 @@ set guicursor=n-v-c:block-Cursor-blinkon0
 " sets the Insert mode cursor to block
 set guicursor=i:block-Cursor
 
-set encoding=utf-8
-set linespace=2
 set sidescroll=1 " scrolls the window left/right to see text outside the window
 
 endif
