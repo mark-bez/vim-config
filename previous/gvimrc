@@ -18,7 +18,7 @@ set guicursor=n-v-c:block-Cursor-blinkwait3000
 set guicursor=i:block-Cursor-blinkwait3000
 
 " set guifont=Monoid:h13:cANSI:qDRAFT
-set guifont=Roboto_Mono:h14:W300
+set guifont=Roboto_Mono_Medium:h15:W300
 " set guifont=Input_Mono:h14:W300
 set encoding=utf-8
 set linespace=2

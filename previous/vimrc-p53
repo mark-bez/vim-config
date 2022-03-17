@@ -8,3 +8,10 @@ set spellfile=$HOME\Documents\repos\vim-config\en.utf-8.add
 if has("gui_running")
 set guifont=Roboto_Mono:h14:W300
 endif
+
+" ............................................................................. .............................................................................
+" vim-calendar
+" .............................................................................
+
+" Set the location of the calendar cache to the shared repo - not working
+" let g:calendar_cache_directory = $HOME\Documents\repos\vim-config\calendar.vim

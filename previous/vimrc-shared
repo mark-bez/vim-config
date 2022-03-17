@@ -1,4 +1,112 @@
 " -----------------------------------------------------------------------------
+" This config is targeted for Vim 8.1+ and expects you to have Plug installed.
+" -----------------------------------------------------------------------------
+
+" -----------------------------------------------------------------------------
+" Plugins
+" -----------------------------------------------------------------------------
+"
+" Specify a directory for plugins.
+call plug#begin('~/.vim/plugged')
+
+" automatic typo correction
+Plug 'tpope/vim-abolish'
+Plug 'jdelkins/vim-correction'
+
+" prose linter
+Plug 'errata-ai/vale'
+Plug 'lgalke/vim-compiler-vale'
+
+" show registers
+Plug 'junegunn/vim-peekaboo'
+
+" displays a calendar
+Plug 'itchyny/calendar.vim'
+
+" use ctrl-a to increment dates
+Plug 'tpope/vim-speeddating'
+
+" Navigate and manipulate files in a tree view.
+Plug 'lambdalisue/fern.vim'
+
+" Run a diff on 2 directories.
+Plug 'will133/vim-dirdiff'
+
+" Briefly highlight which text was yanked.
+Plug 'machakann/vim-highlightedyank'
+
+" Highlight which character to jump to when using horizontal movement keys.
+Plug 'unblevable/quick-scope'
+
+" Use two keystrokes to jump to a location in the file
+Plug 'justinmk/vim-sneak'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Show git file changes in the gutter.
+Plug 'mhinz/vim-signify'
+
+" Ultisnips
+Plug 'sirver/ultisnips'
+
+" Asciidoctor plugins
+Plug 'habamax/vim-asciidoctor'
+
+" Automatically clear search highlights after you move your cursor.
+Plug 'haya14busa/incsearch.vim'
+
+" emmet
+Plug 'mattn/emmet-vim'
+
+" Integrate fzf with Vim.
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'stsewd/fzf-checkout.vim'
+
+" Integrates Fugitive with GitHub
+Plug 'tpope/vim-rhubarb'
+
+" Plug 'dense-analysis/ale'
+Plug 'w0rp/ale'
+" post install (yarn install | npm install) then load plugin only for editing supported files
+
+" Prettifying code files
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html', 'xml'] }
+
+" Font size changer
+Plug 'drmikehenry/vim-fontsize'
+
+" Spelling checker enhancer
+Plug 'inkarkat/vim-ingo-library' | Plug 'inkarkat/vim-SpellCheck'
+
+" Displays CSS code colors
+Plug 'ap/vim-css-color'
+
+" colorschemes
+Plug 'morhetz/gruvbox'
+Plug 'phanviet/vim-monokai-pro'
+Plug 'preservim/vim-colors-pencil'
+
+" Git tool
+Plug 'tpope/vim-fugitive'
+
+" for use with xml.vim ftplugin
+Plug 'https://github.com/adelarsq/vim-matchit'
+
+" List tags in a sidebar
+Plug 'preservim/tagbar'
+
+" Adds vertical lines for indented code
+
+" Plug 'Yggdroot/indentLine'
+
+"
+call plug#end()
+"
+" -----------------------------------------------------------------------------
 " Shared vimrc configuration
 " -----------------------------------------------------------------------------
 
@@ -289,6 +397,8 @@ command! DITAvalidlocal %!xmllint % --valid --catalogs --noout command! TidyXML 
 
 nmap <F9> :TagbarToggle<CR>
 
+
+
 " ............................................................................. .............................................................................
 " FZF plugin mappings
 " .............................................................................
@@ -423,6 +533,7 @@ let g:ale_sign_column_always = 1 " 1 keeps the sign column open at all times
 
 let g:ale_linters = {
  \   'css': ['stylelint', 'prettier'],
+ \   'scss': ['stylelint'],
  \   'html': ['tidy', 'prettier'],
  \   'javascript': ['eslint'],
  \   'xml': ['xmllint'],
@@ -594,8 +705,11 @@ nnoremap <leader>cd :lcd %:h<CR>
 " F3 following a :g/pattern result puts the result into a new window
 nnoremap <silent> <F3> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>
 
-noremap <leader>dt a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd"><CR><task id="abcd"><CR><taskbody><CR><title>Title</title><CR></taskbody><CR></task><ESC>
-noremap <leader>dc a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd"><CR><concept id="abcd"><CR><conbody><CR><title>Title</title><CR></conbody><CR></concept><ESC>
+" DITA snippets - replace with template files you read in
+noremap <leader>dt a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd"><CR><task id=""><CR><taskbody><CR><title>Title</title><CR></taskbody><CR></task><ESC>
+noremap <leader>dc a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd"><CR><concept id=""><CR><conbody><CR><title>Title</title><CR></conbody><CR></concept><ESC>
+
+" HTML snippets
 noremap <leader>ht a<!DOCTYPE html><CR><html><CR><head><CR><title>Title</title><CR><link rel="stylesheet" href="style.css"><CR></head><CR><body><CR><h1>Heading1</h1><CR></body><CR></html><ESC>
 
 " -----------------------------------------------------------------------------
@@ -614,7 +728,7 @@ highlight CursorLineNr gui=bold guifg=#ffffff guibg=#c0d0e0
 highlight nCursor guifg=white guibg=steelblue
 
 " Insert mode cursor - may be overridden by colorscheme
-highlight iCursor guifg=white guibg=steelblue
+highlight iCursor guifg=white guibg=green
 
 " sets the Normal, Visual, Command mode cursors to block
 set guicursor=n-v-c:block-Cursor-blinkon0

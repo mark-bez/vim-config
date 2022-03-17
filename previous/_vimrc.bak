@@ -1,0 +1,12 @@
+" Redirect to vimrc files under Git control
+
+call plug#begin('~/.vim/plugged')
+source $HOME\Documents\repos\vim-config\vimrc-plugins
+call plug#end()
+
+source $HOME\Documents\repos\vim-config\vimrc-shared
+source $HOME\Documents\repos\vim-config\vimrc-p53
+
+winpos 1200 400
+winsize 120 40
+

@@ -27,11 +27,17 @@ Plug 'machakann/vim-highlightedyank'
 " Highlight which character to jump to when using horizontal movement keys.
 Plug 'unblevable/quick-scope'
 
+" Use two keystrokes to jump to a location in the file
+Plug 'justinmk/vim-sneak'
+
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Show git file changes in the gutter.
 Plug 'mhinz/vim-signify'
+
+" Ultisnips
+Plug 'sirver/ultisnips'
 
 " Asciidoctor plugins
 Plug 'habamax/vim-asciidoctor'
@@ -68,9 +74,6 @@ Plug 'inkarkat/vim-ingo-library' | Plug 'inkarkat/vim-SpellCheck'
 " Displays CSS code colors
 Plug 'ap/vim-css-color'
 
-" vim-sneak
-Plug 'justinmk/vim-sneak'
-
 " colorschemes
 Plug 'morhetz/gruvbox'
 Plug 'phanviet/vim-monokai-pro'
@@ -86,5 +89,6 @@ Plug 'https://github.com/adelarsq/vim-matchit'
 Plug 'preservim/tagbar'
 
 " Adds vertical lines for indented code
+
 " Plug 'Yggdroot/indentLine'
 
