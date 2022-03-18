@@ -8,6 +8,9 @@
 "
 call plug#begin('~/.vim/plugged')
 
+" Enhance viewing the list of previous and current files
+Plug 'gpanders/vim-oldfiles'
+
 " automatic typo correction
 Plug 'tpope/vim-abolish'
 Plug 'jdelkins/vim-correction'
@@ -23,7 +26,7 @@ Plug 'errata-ai/vale'
 Plug 'lgalke/vim-compiler-vale'
 
 " Better display unwanted whitespace.
-Plug 'ntpeters/vim-better-whitespace'
+" Plug 'ntpeters/vim-better-whitespace'
 
 " Toggle comments in various ways.
 Plug 'tpope/vim-commentary'
@@ -31,7 +34,7 @@ Plug 'tpope/vim-commentary'
 " A number of useful motions for the quickfix list, pasting and more.
 Plug 'tpope/vim-unimpaired'
 
-" show registers
+" show registers when you type "
 Plug 'junegunn/vim-peekaboo'
 
 " displays a calendar
@@ -134,12 +137,8 @@ Plug 'tpope/vim-fugitive'
 " for use with xml.vim ftplugin
 Plug 'https://github.com/adelarsq/vim-matchit'
 
-" List tags in a sidebar
-Plug 'preservim/tagbar'
-
 " Adds vertical lines for indented code
-
-" Plug 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 
 " Languages and file types.
 Plug 'chrisbra/csv.vim'
@@ -170,7 +169,7 @@ set incsearch                  " search as characters are entered, which is incr
 set laststatus=2               " always show statusline (even with only single window)
 set lazyredraw                 " redraw screen only when we need to
 set linespace=2
-set listchars=tab:Δ\ ,eol:¬
+set listchars=tab:→\ ,trail:·,precedes:«,extends:»,eol:¶    " sets whitespace characters to show when turned on with F2, tabs converted to spaces with smarttab
 set matchpairs+=<:>            " Use % to jump between pairs
 set more                     " Avoids breaking up a long listing into screens with --- more ---
 set number                     " show line numbers
@@ -195,7 +194,6 @@ set noshowmatch                  "turn off highlight matching parentheses / brac
 set showmode
 set smartcase
 set smartindent                " even better autoindent (e.g. add indent after '{')
-set smarttab
 set softtabstop=2       " backspace after pressing <TAB> will remove up to this many spaces
 set spelllang=en_us
 set splitbelow
@@ -359,7 +357,7 @@ nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> [B :blast<CR>
 " Toggles between last viewed buffer
-nnoremap <silent> <F2> :b#<CR>
+nnoremap <silent> <F10> :b#<CR>
 
 " Remapping of alt-j, alt-k to move lines up and down
 nnoremap <A-j> :m .+1<CR>==
@@ -405,9 +403,9 @@ nnoremap <leader>a :tabnew<CR>
 "   Taken from this talk: https://www.youtube.com/watch?v=lwD8G1P52Sk
 nnoremap <leader>sp :normal! mz[s1z=`z<CR>
 
-" Toggle visually showing all whitespace characters.
-nnoremap <F7> :set list!<CR>
-inoremap <F7> <C-o>:set list!<CR>
+" Toggle visually showing whitespace characters listed in listchars
+nnoremap <F2> :set list!<CR>
+inoremap <F2> <C-o>:set list!<CR>
 
 " -----------------------------------------------------------------------------
 " Spell checking
@@ -524,12 +522,6 @@ command! DITAvalidlocal %!xmllint % --valid --catalogs --noout command! TidyXML 
 " Plugin settings, mappings and autocommands
 " -----------------------------------------------------------------------------
 
-" .............................................................................
-" Ctags
-" .............................................................................
-
-nmap <F9> :TagbarToggle<CR>
-
 " ............................................................................. .............................................................................
 " vim-correction
 " .............................................................................
@@ -572,12 +564,6 @@ nmap <Leader>t :Tags<CR>
 
 " If installed using git
 Plug '~/.fzf'
-
-" .............................................................................
-" ctags tagbar toggle
-" .............................................................................
-
-nmap <F9> :TagbarToggle<CR>
 
 " .............................................................................
 " Prettier
@@ -663,9 +649,9 @@ xmap <Leader>R
 " ntpeters/vim-better-whitespace
 " .............................................................................
 
-let g:strip_whitespace_confirm=0
-let g:strip_whitelines_at_eof=1
-let g:strip_whitespace_on_save=1
+" let g:strip_whitespace_confirm=0
+" let g:strip_whitelines_at_eof=1
+" let g:strip_whitespace_on_save=1
 
 " .............................................................................
 " Konfekt/FastFold
@@ -673,6 +659,8 @@ let g:strip_whitespace_on_save=1
 
 let g:fastfold_savehook=0
 let g:fastfold_fold_command_suffixes=[]
+let g:markdown_syntax_folding = 1
+let g:html_syntax_folding = 1
 
 " .............................................................................
 " junegunn/limelight.vim
