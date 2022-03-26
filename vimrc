@@ -1,8 +1,4 @@
 " -----------------------------------------------------------------------------
-" This config is targeted for Vim 8.1+ and expects you to have Plug installed.
-" -----------------------------------------------------------------------------
-
-" -----------------------------------------------------------------------------
 " Plugins
 " -----------------------------------------------------------------------------
 "
@@ -26,10 +22,7 @@ Plug 'errata-ai/vale'
 Plug 'lgalke/vim-compiler-vale'
 
 " Better display unwanted whitespace.
-" Plug 'ntpeters/vim-better-whitespace'
-
-" Toggle comments in various ways.
-Plug 'tpope/vim-commentary'
+Plug 'ntpeters/vim-better-whitespace'
 
 " A number of useful motions for the quickfix list, pasting and more.
 Plug 'tpope/vim-unimpaired'
@@ -49,9 +42,6 @@ Plug 'lambdalisue/fern-mapping-mark-children.vim'
 
 " Helpers for moving and manipulating files / directories.
 Plug 'tpope/vim-eunuch'
-
-" Run a diff on 2 blocks of text.
-Plug 'AndrewRadev/linediff.vim'
 
 " Modify * to also work with visual selections.
 Plug 'nelstrom/vim-visual-star-search'
@@ -134,6 +124,9 @@ Plug 'cwfoo/vim-text-omnicomplete', { 'do': 'make' }
 " Git tool
 Plug 'tpope/vim-fugitive'
 
+" Git commit browser tool to be used with fugitive
+Plug 'junegunn/gv.vim'
+
 " for use with xml.vim ftplugin
 Plug 'https://github.com/adelarsq/vim-matchit'
 
@@ -207,6 +200,7 @@ set updatetime=4000            " related to when a swapfile is written default i
 " set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v] " statusline comes from airline settings
 " set statusline=%t%=[%{strlen(&fenc)?&fenc:'none'},%{&ff}]\ %h%m%r%y\ %c\ %l/%L\ %P
 set undofile
+set wrapmargin=0
 set wildmenu                   " visual autocomplete for command menu
 set wildmode=list:longest,full
 
@@ -356,8 +350,6 @@ nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> [B :blast<CR>
-" Toggles between last viewed buffer
-nnoremap <silent> <F10> :b#<CR>
 
 " Remapping of alt-j, alt-k to move lines up and down
 nnoremap <A-j> :m .+1<CR>==
@@ -478,10 +470,15 @@ endfunction
 " -----------------------------------------------------------------------------
 "
 let g:airline_theme='dark'
-" let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1
 let g:airline_detect_modified=1
 let g:airline#extensions#capslock#symbol = 'CAPS'
-" let g:airline_extensions_anzu_enabled = 1
+
+" -----------------------------------------------------------------------------
+ ""dahu/vim-asciidoc settings
+" -----------------------------------------------------------------------------
+
+let g:asciidoc_title_style_atx="symmetric"
 
 " -----------------------------------------------------------------------------
 " Insert date and time
@@ -504,6 +501,11 @@ let g:airline#extensions#capslock#symbol = 'CAPS'
 
 " Copy the current complete buffer's path to the unnamed register so you can paste with p
 :nmap cP :let @" = expand("%:p")<CR>
+
+" Toggle split window zoom
+
+nnoremap <silent> <F10> <c-w>\|
+nnoremap <silent> <F11> <c-w>=
 
 " -----------------------------------------------------------------------------
 " Pretty print formatting
@@ -716,6 +718,7 @@ fun! AsciidoctorMappings()
     nnoremap <buffer> <leader>p :AsciidoctorPasteImage<CR>
     " :make will build pdfs
     compiler asciidoctor2pdf
+   " compiler asciidoctor
 endfun
 
 " Call AsciidoctorMappings for all `*.adoc` and `*.asciidoc` files
@@ -925,8 +928,10 @@ nnoremap <leader>cd :lcd %:h<CR>
 nnoremap <silent> <F3> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>
 
 " DITA snippets - replace with template files you read in
-noremap <leader>dt a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd"><CR><task id=""><CR><taskbody><CR><title>Title</title><CR></taskbody><CR></task><ESC>
-noremap <leader>dc a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd"><CR><concept id=""><CR><conbody><CR><title>Title</title><CR></conbody><CR></concept><ESC>
+noremap <leader>dt a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd"><CR><task id="task-1"><CR><taskbody><CR><title>Title</title><CR></taskbody><CR></task><ESC>
+noremap <leader>dnt a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd"><CR><task id="task-1"><CR><taskbody><CR><title>Title</title><CR></taskbody><task id="task-2"><CR><taskbody><CR><title>Title</title><CR></taskbody><CR></task><CR></task><ESC>
+noremap <leader>dc a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd"><CR><concept id="concept-1"><CR><conbody><CR><title>Title</title><CR></conbody><CR></conbody></concept><ESC>
+noremap <leader>dnc a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd"><CR><concept id="concept-1"><CR><conbody><CR><title>Title</title><CR></conbody><CR><concept id="concept-2"><CR><conbody><CR><title>Title</title><CR></conbody><CR></concept><CR></concept><ESC>
 
 " HTML snippets
 noremap <leader>ht a<!DOCTYPE html><CR><html><CR><head><CR><title>Title</title><CR><link rel="stylesheet" href="style.css"><CR></head><CR><body><CR><h1>Heading1</h1><CR></body><CR></html><ESC>
@@ -960,25 +965,26 @@ set guicursor=i:ver30-iCursor-blinkwait3000
 
 set sidescroll=1 " scrolls the window left/right to see text outside the window
 
+set guifont=Roboto_Mono:h14:W300
+
 endif
 
 " -----------------------------------------------------------------------------
-" Computer-specific settings - Lenovo P53
+" Computer-specific settings
+" :echo $COMPUTERNAME to find
 " -----------------------------------------------------------------------------
+
+if $COMPUTERNAME == "P53"
 
 set undodir=$HOME\Documents\vim-undo-files     " Saves undo steps to a file so you can redo even after exiting Vim
 set spellfile=$HOME\Documents\repos\vim-config\en.utf-8.add
 
-if has("gui_running")
-set guifont=Roboto_Mono:h16:W300
+winpos 2000 400
+winsize 150 50
+
+" Set the location of vim-calendar cache to the shared repo - not working
+" let g:calendar_cache_directory = C:\Users\echo\Documents\repos\vim-config\calendar.vim
+
+elseif $COMPUTERNAME == "something"
+
 endif
-
-winpos 1200 400
-winsize 150 40
-
-" ............................................................................. .............................................................................
-" vim-calendar
-" .............................................................................
-
-" Set the location of the calendar cache to the shared repo - not working
-" let g:calendar_cache_directory = $HOME\Documents\repos\vim-config\calendar.vim
