@@ -14,15 +14,12 @@ Plug 'jdelkins/vim-correction'
 " Drastically improve insert mode performance in files with folds.
 Plug 'Konfekt/FastFold'
 
-" Dim paragraphs above and below the active paragraph.
-Plug 'junegunn/limelight.vim'
-
 " prose linter
 Plug 'errata-ai/vale'
 Plug 'lgalke/vim-compiler-vale'
 
 " Better display unwanted whitespace.
-Plug 'ntpeters/vim-better-whitespace'
+" Plug 'ntpeters/vim-better-whitespace'
 
 " A number of useful motions for the quickfix list, pasting and more.
 Plug 'tpope/vim-unimpaired'
@@ -39,9 +36,6 @@ Plug 'tpope/vim-speeddating'
 " Navigate and manipulate files in a tree view.
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-mapping-mark-children.vim'
-
-" Helpers for moving and manipulating files / directories.
-Plug 'tpope/vim-eunuch'
 
 " Modify * to also work with visual selections.
 Plug 'nelstrom/vim-visual-star-search'
@@ -67,17 +61,17 @@ Plug 'vim-airline/vim-airline-themes'
 " Show git file changes in the gutter.
 Plug 'mhinz/vim-signify'
 
-" Automatically show Vim's complete menu while typing.
+" Automatically show Vim's complete menu while typing https://github.com/othree/vim-autocomplpop/blob/master/doc/acp.txt
 Plug 'vim-scripts/AutoComplPop'
-
-" A bunch of useful language related snippets (ultisnips is the engine).
-" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'| Plug 'jhradilek/vim-snippets'
 
 " Asciidoctor plugin
 Plug 'habamax/vim-asciidoctor'
 
 " Automatically clear search highlights after you move your cursor.
 Plug 'haya14busa/incsearch.vim'
+
+" Surround text
+Plug 'tpope/vim-surround'
 
 " Better manage Vim sessions.
 Plug 'tpope/vim-obsession'
@@ -118,9 +112,6 @@ Plug 'ap/vim-css-color'
 Plug 'gruvbox-community/gruvbox'
 Plug 'preservim/vim-colors-pencil'
 
-" Omnicomplete library
-Plug 'cwfoo/vim-text-omnicomplete', { 'do': 'make' }
-
 " Git tool
 Plug 'tpope/vim-fugitive'
 
@@ -148,7 +139,7 @@ set autoindent                 " copy indent from current line when starting a n
 set autoread                   "autoreload the file if is has been changed outside Vim
 set backspace=indent,eol,start " Allows you to backspace to the left of the Insert mode entry character
 set cmdheight=2                " give more space for displaying messages
-set complete-=i                " sets the completion mode for the built-in insert completion - see h: set complete
+set complete+=.,w,b,u,i            " sets the completion mode for the built-in insert completion - see also set omnifunc=syntaxcomplete#Complete
 set cursorline                 " highlight current line - this may slow down performance
 set cpo-=J                     " sets the definition of a sentence to be one space after the period - for two spaces use set cpo+=J
 set encoding=utf-8             " set encoding to UTF-8 (default was "latin1")
@@ -175,6 +166,7 @@ set nostartofline
 set noswapfile
 set nowrap                     " do not wrap lines
 set numberwidth=6              " sets the gutter width
+set omnifunc=syntaxcomplete#Complete " not on by default but MUST be here for XML insert completion or it will be really slow
 set path=.                     " sets the default path used for :find and gf and others to the directory the current buffer is in only
 set regexpengine=1
 set relativenumber             " set relative line numbers
@@ -182,7 +174,6 @@ set ruler                      " show line and column number of the cursor on ri
 set scrolloff=0                " keep this number of lines between the cursor and the edge of the screen
 set shiftwidth=2               " number of spaces to use for each step of (auto)indent
 set shortmess=I                " turns off Bram's message on start-up (I)
-set showbreak
 set showcmd
 set sidescroll=1               " scrolls the window left/right to see text outside the window
 set noshowmatch                  "turn off highlight matching parentheses / brackets [{()}]
@@ -281,14 +272,6 @@ filetype plugin indent on
 
 let g:indentLine_setColors = 0
 let g:indentLine_char_list = ['|']
-
-" -----------------------------------------------------------------------------
-" vim plugins autocorrection filetypes
-" -----------------------------------------------------------------------------
-
-let g:correction_filetypes = [
-  \ 'text', 'markdown', 'gitcommit', 'xml', 'html',
-  \ 'asciidoc', 'adoc', 'pandoc' ]
 
 " -----------------------------------------------------------------------------
 " Basic mappings
@@ -516,6 +499,10 @@ command! DITAvalidlocal %!xmllint % --valid --catalogs --noout command! TidyXML 
 " Turn it off
 " let g:loaded_correction = 1
 
+let g:correction_filetypes = [
+  \ 'text', 'markdown', 'gitcommit', 'xml', 'html',
+  \ 'asciidoc', 'adoc', 'pandoc' ]
+
 " ............................................................................. .............................................................................
 " FZF plugin mappings
 " .............................................................................
@@ -600,12 +587,13 @@ map q <Plug>Sneak_s
 map Q <Plug>Sneak_S
 
 " .............................................................................
-" omni complete filetype
+" AutoComplPop settings - https://github.com/othree/vim-autocomplpop/blob/master/doc/acp.txt
 " .............................................................................
 
-autocmd FileType html setlocal omnifunc=text_omnicomplete#Complete
-autocmd FileType asciidoc setlocal omnifunc=text_omnicomplete#Complete
-autocmd FileType xml setlocal omnifunc=text_omnicomplete#Complete
+let g:acp_enableAtStartup = 1
+let g:acp_completeOption = '.,w,b,u'
+let g:acp_behaviorFileLength = 3
+let g:acp_behaviorXmlOmniLength = 3
 
 " .............................................................................
 " mhinz/vim-grepper
@@ -831,7 +819,7 @@ nnoremap <silent> ]q :cnext<CR>
 " Autocomplete
 " -----------------------------------------------------------------------------
 
-" autocloses html and xml tags - may interfere with insert completion tab set below
+" autocloses html and xml tags used along with the xml.vim file
 inoremap ><Tab> ><Esc>F<lyt>o</<C-r>"><Esc>O<Space> 
 
 " -----------------------------------------------------------------------------
@@ -873,7 +861,7 @@ nmap <Leader>i :%!xsltlint<CR>
 nnoremap <C-c> "+y
 vnoremap <C-c> "+y
 
-" while in any Vim mode, use ctrl-p to paste into Vim from the Windows clipboard
+" while in normal Vim mode, use ctrl-p to paste into Vim from the Windows clipboard
 map <C-p> "+p
 
 " use ctrl-x in normal and visual modes of Vim to cut and store in the Windows clipboard
@@ -893,6 +881,12 @@ nnoremap <leader><Left> "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3
 " push word under cursor to the right
 nnoremap <leader><Right> "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o>/\w\+\_W\+<CR><C-l>
 
+" -----------------------------------------------------------------------------
+" Define what a word is so a GUID will be a word
+" -----------------------------------------------------------------------------
+
+set iskeyword+=\-  " a word includes hyphens to include filenames and GUIDs
+set iskeyword+=\.  " a word includes periods to include filename extensions such as .xml
 
 " -----------------------------------------------------------------------------
 " Create text object for a line, v-select with vil -  https://vi.stackexchange.com/questions/24861/selector-for-line-of-text
@@ -946,8 +940,8 @@ nnoremap <silent> <F4> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>
 
 " DITA snippets - replace with template files you read in
 noremap <leader>dt a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd"><CR><task id="task-1"><CR><taskbody><CR><title>Title</title><CR></taskbody><CR></task><ESC>
-noremap <leader>dnt a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd"><CR><task id="task-1"><CR><taskbody><CR><title>Title</title><CR></taskbody><task id="task-2"><CR><taskbody><CR><title>Title</title><CR></taskbody><CR></task><CR></task><ESC>
-noremap <leader>dc a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd"><CR><concept id="concept-1"><CR><conbody><CR><title>Title</title><CR></conbody><CR></conbody></concept><ESC>
+noremap <leader>dnt a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd"><CR><task id="task-1"><CR><taskbody><CR><title>Title</title><CR></taskbody><CR><task id="task-2"><CR><taskbody><CR><title>Title</title><CR></taskbody><CR></task><CR></task><ESC>
+noremap <leader>dc a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd"><CR><concept id="concept-1"><CR><conbody><CR><title>Title</title><CR></conbody><CR></concept><ESC>
 noremap <leader>dnc a<?xml version="1.0" encoding="utf-8"?><CR><!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd"><CR><concept id="concept-1"><CR><conbody><CR><title>Title</title><CR></conbody><CR><concept id="concept-2"><CR><conbody><CR><title>Title</title><CR></conbody><CR></concept><CR></concept><ESC>
 
 " HTML snippets
@@ -986,6 +980,7 @@ set guifont=Roboto_Mono:h14:W300
 
 " Add keyboard shortcuts
 imap <Tab> <C-N>
+imap <leader><Tab> <C-X><C-F>
 
 endif
 
