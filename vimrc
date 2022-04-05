@@ -994,8 +994,8 @@ if $COMPUTERNAME == "P53"
 set undodir=$HOME\Documents\vim-undo-files     " Saves undo steps to a file so you can redo even after exiting Vim
 set spellfile=$HOME\Documents\repos\vim-config\en.utf-8.add
 
-winpos 2000 400
-winsize 150 50
+winpos 1800 400
+winsize 200 50
 
 cd $HOME\Documents\repos
 
