@@ -187,7 +187,7 @@ set splitright
 set tabstop=2                  " width that a <TAB> character displays as
 set termguicolors
 set textwidth=0
-set timeoutlen=100             " Timeout after typing a mapping code before aborting it and carrying out the behaviour of the keys typed so far
+set timeoutlen=150             " If less than 200, leader mappings don't work. Timeout after typing a mapping code before aborting it and carrying out the behaviour of the keys typed so far
 set ttimeoutlen=80             " Time Vim will wait after each keycode keystroke such as <esc> before aborting it and carrying out the behaviour of the keys typed so far
 set ttyfast
 set updatetime=4000            " related to when a swapfile is written default is 4 s which can cause delays - swapfile currently off with set noswapfile
@@ -279,8 +279,8 @@ let g:indentLine_char_list = ['|']
 " -----------------------------------------------------------------------------
 
 " set the mapleader - must appear before any leader mappings
-let mapleader = " "
-let g:mapleader = " "
+let mapleader =" "
+let g:mapleader =" "
 
 " turn off search highlighting with <CR> (carriage-return)
 nnoremap <CR> :nohlsearch<CR><CR>
