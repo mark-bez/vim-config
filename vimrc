@@ -1003,6 +1003,14 @@ cd $HOME\Documents\repos
 " Set the location of vim-calendar cache to the shared repo - not working
 " let g:calendar_cache_directory = C:\Users\echo\Documents\repos\vim-config\calendar.vim
 
-elseif $COMPUTERNAME == "something"
+elseif $COMPUTERNAME == "CEPSNYLPENG1491"
+
+cd C:\Users\mark.beresford\Documents\myfiles
+
+set undodir=C:\Users\mark.beresford\Documents\vim-config\vim-undo-files     " Saves undo steps to a file so you can redo even after exiting Vim
+set spellfile=C:\Users\mark.beresford\Documents\vim-config\en.utf-8.add
+
+winpos 1200 400
+winsize 100 30
 
 endif
