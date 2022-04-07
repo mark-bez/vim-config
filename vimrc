@@ -444,12 +444,6 @@ let g:airline_detect_modified=1
 let g:airline#extensions#capslock#symbol = 'CAPS'
 
 " -----------------------------------------------------------------------------
- ""dahu/vim-asciidoc settings
-" -----------------------------------------------------------------------------
-
-let g:asciidoc_title_style_atx="symmetric"
-
-" -----------------------------------------------------------------------------
 " Insert date and time
 " -----------------------------------------------------------------------------
 
@@ -639,12 +633,6 @@ let g:markdown_syntax_folding = 1
 let g:html_syntax_folding = 1
 
 " .............................................................................
-" junegunn/limelight.vim
-" .............................................................................
-
-let g:limelight_conceal_ctermfg=244
-
-" .............................................................................
 " habamax/asciidoctor plugin settings
 " .............................................................................
 
@@ -659,6 +647,18 @@ let g:asciidoctor_executable = 'asciidoctor'
 
 " What extensions to use for HTML, default `[]`.
 let g:asciidoctor_extensions = ['asciidoctor-diagram', 'asciidoctor-rouge']
+
+" What to use for PDF, default `asciidoctor-pdf`.
+let g:asciidoctor_pdf_executable = 'asciidoctor-pdf'
+
+" What extensions to use for PDF, default `[]`.
+let g:asciidoctor_pdf_extensions = ['asciidoctor-diagram']
+
+" Path to PDF themes, default `''`.
+let g:asciidoctor_pdf_themes_path = '~/docs/AsciiDocThemes'
+
+" Path to PDF fonts, default `''`.
+let g:asciidoctor_pdf_fonts_path = '~/docs/AsciiDocThemes/fonts'
 
 " Path to the custom css - turned off so I can specify as a file attribute
 " let g:asciidoctor_css_path = 'C:\Users\echo\Documents\notes\css'
@@ -685,7 +685,6 @@ fun! AsciidoctorMappings()
     nnoremap <buffer> <leader>p :AsciidoctorPasteImage<CR>
     " :make will build pdfs
     compiler asciidoctor2pdf
-   " compiler asciidoctor
 endfun
 
 " Call AsciidoctorMappings for all `*.adoc` and `*.asciidoc` files
