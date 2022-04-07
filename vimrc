@@ -187,9 +187,10 @@ set splitright
 set tabstop=2                  " width that a <TAB> character displays as
 set termguicolors
 set textwidth=0
-set timeoutlen=500
+set timeoutlen=100             " Timeout after typing a mapping code before aborting it and carrying out the behaviour of the keys typed so far
+set ttimeoutlen=80             " Time Vim will wait after each keycode keystroke such as <esc> before aborting it and carrying out the behaviour of the keys typed so far
 set ttyfast
-set updatetime=4000            " related to when a swapfile is written default is 4 s which can cause delays - swapfile currently off
+set updatetime=4000            " related to when a swapfile is written default is 4 s which can cause delays - swapfile currently off with set noswapfile
 " set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v] " statusline comes from airline settings
 " set statusline=%t%=[%{strlen(&fenc)?&fenc:'none'},%{&ff}]\ %h%m%r%y\ %c\ %l/%L\ %P
 set undofile
