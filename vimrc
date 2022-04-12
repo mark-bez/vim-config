@@ -176,8 +176,8 @@ set shiftwidth=2               " number of spaces to use for each step of (auto)
 set shortmess=I                " turns off Bram's message on start-up (I)
 set showcmd
 set sidescroll=1               " scrolls the window left/right to see text outside the window
-set noshowmatch                  "turn off highlight matching parentheses / brackets [{()}]
-set showmode
+set showmatch                  "turn off highlight matching parentheses / brackets [{()}]
+set noshowmode                 " turn off statusline mode because airline has it built in
 set smartcase
 set smartindent                " even better autoindent (e.g. add indent after '{')
 set softtabstop=2       " backspace after pressing <TAB> will remove up to this many spaces
@@ -186,7 +186,7 @@ set splitbelow
 set splitright
 set tabstop=2                  " width that a <TAB> character displays as
 set termguicolors
-set textwidth=0
+set textwidth=0                " best to make this the same as the tabstop
 set timeoutlen=150             " If less than 200, leader mappings don't work. Timeout after typing a mapping code before aborting it and carrying out the behaviour of the keys typed so far
 set ttimeoutlen=80             " Time Vim will wait after each keycode keystroke such as <esc> before aborting it and carrying out the behaviour of the keys typed so far
 set ttyfast
@@ -293,17 +293,6 @@ noremap Y ^vg_
 inoremap jk <esc>
 inoremap kj <esc>
 xnoremap jk <esc>
-xnoremap kj <esc>
-" map the ENTER key to switch back to Normal mode from Insert and Visual
-" Use Caps Lock ENTER (mapped to Ctrl) to add a line return from Insert mode
-" inoremap <ENTER> <esc>
-" xnoremap <ENTER> <esc>
-
-" Shortcuts for changing the window focus
-" map <C-h> <C-w>h
-" map <C-j> <C-w>j
-" map <C-k> <C-w>k
-" map <C-l> <C-w>l
 
 " Navigate around splits with a single key combo.
 nnoremap <C-l> <C-w><C-l>
@@ -329,8 +318,8 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " use tab to move around to bracket pairs - may interfere with insert tab mapping
-" nnoremap <tab> %
-" vnoremap <tab> %
+nnoremap <tab> %
+vnoremap <tab> %
 
 " splits the line on a character in Normal mode when pressing s
 nnoremap <leader>s i<CR><ESC>
@@ -377,10 +366,10 @@ map <F7> :setlocal spell!<CR>
 inoremap <F7> <C-o>:setlocal spell!<CR>
 
 " Spelling mistakes will also be colored red if you uncomment the colors.
-hi SpellBad cterm=underline ctermfg=203 guifg=#ff5f5f
-hi SpellLocal cterm=underline ctermfg=203 guifg=#ff5f5f
-hi SpellRare cterm=underline ctermfg=203 guifg=#ff5f5f
-" hi SpellCap cterm=underline ctermfg=203 guifg=DarkMagenta
+hi SpellBad cterm=underline ctermfg=203 guifg=cyan1
+hi SpellLocal cterm=underline ctermfg=203 guifg=LightCoral
+hi SpellRare cterm=underline ctermfg=203 guifg=LemonChiffon
+hi SpellCap cterm=underline ctermfg=203 guifg=LimeGreen
 
 " Use F8 to toggle relative line numbers and regular line numbers.
 nnoremap <F8> :set relativenumber!<CR>
@@ -389,26 +378,9 @@ inoremap <F8> <C-o>:set relativenumber!<CR>
 " Use F3 to remove trailing whitespace without removing empty lines
 :nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
-" Toggle quickfix window.
-function! QuickFix_toggle()
-    for i in range(1, winnr('$'))
-        let bnum = winbufnr(i)
-        if getbufvar(bnum, '&buftype') == 'quickfix'
-            cclose
-            return
-        endif
-    endfor
-
-    copen
-endfunction
-nnoremap <silent> <Leader>c :call QuickFix_toggle()<CR>
-
 " -----------------------------------------------------------------------------
 " Basic autocommands
 " -----------------------------------------------------------------------------
-
-" Auto-resize splits when Vim gets resized.
-autocmd VimResized * wincmd =
 
 " Update a buffer's contents on focus if it changed outside of Vim.
 au FocusGained,BufEnter * :checktime
@@ -991,7 +963,7 @@ endif
 
 if $COMPUTERNAME == "P53"
 
-set undodir=$HOME\Documents\vim-undo-files     " Saves undo steps to a file so you can redo even after exiting Vim
+set undodir=$HOME\Documents\repos\vim-config\undo     " Saves undo steps to a file so you can redo even after exiting Vim
 set spellfile=$HOME\Documents\repos\vim-config\en.utf-8.add
 
 winpos 1800 400
@@ -1006,8 +978,8 @@ elseif $COMPUTERNAME == "CEPSNYLPENG1491"
 
 cd C:\Users\mark.beresford\Documents\myfiles
 
-set undodir=C:\Users\mark.beresford\Documents\vim-config\vim-undo-files     " Saves undo steps to a file so you can redo even after exiting Vim
-set spellfile=C:\Users\mark.beresford\Documents\vim-config\en.utf-8.add
+set undodir=C:\Users\mark.beresford\Documents\myfiles\vim-config\undo     " Saves undo steps to a file so you can redo even after exiting Vim
+set spellfile=C:\Users\mark.beresford\Documents\myfiles\vim-config\en.utf-8.add
 
 winpos 1200 400
 winsize 100 30
