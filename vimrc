@@ -293,6 +293,12 @@ noremap Y ^vg_
 inoremap jk <esc>
 inoremap kj <esc>
 xnoremap jk <esc>
+xnoremap kj <esc>
+
+" map the ENTER key to switch back to Normal mode from Insert and Visual
+" Use Caps Lock ENTER (mapped to Ctrl) to add a line return from Insert mode
+" inoremap <ENTER> <esc>
+" xnoremap <ENTER> <esc>
 
 " Navigate around splits with a single key combo.
 nnoremap <C-l> <C-w><C-l>
@@ -550,8 +556,8 @@ highlight QuickScopeSecondary gui=underline cterm=underline
 " puts codes onto repeat matches so you can type one more letter to get
 " where you want to go
 let g:sneak#label = 1
-map q <Plug>Sneak_s
-map Q <Plug>Sneak_S
+map <leader>q <Plug>Sneak_s
+" map <leader>Q <Plug>Sneak_S
 
 " .............................................................................
 " AutoComplPop settings - https://github.com/othree/vim-autocomplpop/blob/master/doc/acp.txt
@@ -601,14 +607,15 @@ xmap <Leader>R
 
 let g:fastfold_savehook=0
 let g:fastfold_fold_command_suffixes=[]
-let g:markdown_syntax_folding = 1
-let g:html_syntax_folding = 1
+" let g:markdown_syntax_folding = 1
+let g:asciidoctor_syntax_folding = 1
+" let g:html_syntax_folding = 1
 
 " .............................................................................
 " habamax/asciidoctor plugin settings
 " .............................................................................
 
-" Fold sections, default `0`.
+" Fold sections: must be set to 1 for automatic folding when you open a file
 let g:asciidoctor_folding = 1
 
 " Fold options, default `0`.
@@ -845,7 +852,7 @@ nnoremap <silent> <leader>c xph
 
 " swap word under cursor with the next word without moving the cursor
 " nnoremap gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o><C-l>
-nnoremap <leader>w dawwP
+nnoremap <leader>w daw wP
 
 " push word under cursor to the left
 nnoremap <leader><Left> "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o><C-l>
@@ -936,6 +943,9 @@ highlight nCursor guifg=white guibg=steelblue
 
 " Insert mode cursor - may be overridden by colorscheme
 highlight iCursor guifg=white guibg=green
+
+" sets text color of folds, otherwise set by the colorscheme
+highlight Folded guifg=goldenrod2
 
 " sets the Normal, Visual, Command mode cursors to block
 set guicursor=n-v-c:block-Cursor-blinkon0
